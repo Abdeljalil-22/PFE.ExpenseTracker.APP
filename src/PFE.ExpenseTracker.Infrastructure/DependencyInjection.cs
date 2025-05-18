@@ -26,6 +26,7 @@ namespace PFE.ExpenseTracker.Infrastructure
             services.AddScoped<IJwtAuthenticationService, JwtAuthenticationService>();
             services.AddScoped<INotificationService, NotificationService>();
             services.AddScoped<IFileStorageService, FileStorageService>();
+            services.AddScoped<IReportService, ReportService>();
             services.AddScoped<ApplicationDbInitializer>();
 
             // Register background services
