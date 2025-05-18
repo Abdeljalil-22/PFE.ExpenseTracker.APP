@@ -19,6 +19,6 @@ namespace PFE.ExpenseTracker.Domain.Entities
         public User User { get; set; }
         public Category Category { get; set; }
         public ICollection<Attachment> Attachments { get; set; }
-        public ICollection<SharedExpenseUser> SharedWith { get; set; }
+        // public ICollection<SharedExpenseUser> SharedWith { get; set; }
     }
 }

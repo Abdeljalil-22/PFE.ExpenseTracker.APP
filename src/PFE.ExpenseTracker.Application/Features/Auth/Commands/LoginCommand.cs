@@ -4,7 +4,8 @@ using FluentValidation;
 using MediatR;
 using PFE.ExpenseTracker.Application.Common.Interfaces;
 using PFE.ExpenseTracker.Application.Common.Models;
-using BCrypt.Net;
+using PFE.ExpenseTracker.Infrastructure.Authentication;
+// using BCrypt.Net;
 
 namespace PFE.ExpenseTracker.Application.Features.Auth.Commands
 {
@@ -42,10 +43,10 @@ namespace PFE.ExpenseTracker.Application.Features.Auth.Commands
         {
             var user = await _userRepository.GetByEmailAsync(request.Email);
 
-            if (user == null || !BCrypt.Net.BCrypt.Verify(request.Password, user.PasswordHash))
-            {
-                return Result<AuthenticationResponse>.Failure("Invalid email or password");
-            }
+            // if (user == null || !BCrypt.Net.BCrypt.Verify(request.Password, user.PasswordHash))
+            // {
+            //     return Result<AuthenticationResponse>.Failure("Invalid email or password");
+            // }
 
             if (!user.IsActive)
             {

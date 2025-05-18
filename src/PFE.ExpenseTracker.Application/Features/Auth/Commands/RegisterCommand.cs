@@ -5,6 +5,7 @@ using MediatR;
 using PFE.ExpenseTracker.Application.Common.Interfaces;
 using PFE.ExpenseTracker.Application.Common.Models;
 using PFE.ExpenseTracker.Domain.Entities;
+using PFE.ExpenseTracker.Infrastructure.Authentication;
 
 namespace PFE.ExpenseTracker.Application.Features.Auth.Commands
 {

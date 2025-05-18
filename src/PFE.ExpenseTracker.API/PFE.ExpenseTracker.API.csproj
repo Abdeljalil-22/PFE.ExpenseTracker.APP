@@ -11,5 +11,8 @@
     <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="8.0.14" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.6.2" />
   </ItemGroup>
+   <ItemGroup>
+    <ProjectReference Include="..\PFE.ExpenseTracker.Application\PFE.ExpenseTracker.Application.csproj" />
+  </ItemGroup>
 
 </Project>
