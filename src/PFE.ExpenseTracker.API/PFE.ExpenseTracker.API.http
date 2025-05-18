@@ -1,0 +1,6 @@
+@PFE.ExpenseTracker.API_HostAddress = http://localhost:5039
+
+GET {{PFE.ExpenseTracker.API_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
