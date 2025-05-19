@@ -166,8 +166,8 @@ namespace PFE.ExpenseTracker.Infrastructure.Services
                         worksheet.Cell(row, 1).Value = budget.Category?.Name ?? "N/A";
                         worksheet.Cell(row, 2).Value = budget.Amount;
                         worksheet.Cell(row, 3).Value = budget.SpentAmount;
-                        worksheet.Cell(row, 4).Formula = $"=B{row}-C{row}";
-                        worksheet.Cell(row, 5).Formula = $"=C{row}/B{row}";
+                        // worksheet.Cell(row, 4).Formula = $"=B{row}-C{row}";
+                        // worksheet.Cell(row, 5).Formula = $"=C{row}/B{row}";
                         row++;
                     }
 

@@ -58,9 +58,8 @@ namespace PFE.ExpenseTracker.Application.Features.Expenses.Queries
             var expense = await _expenseRepository.GetByIdAsync(request.Id);
             if (expense == null)
                 return Result<ExpenseDto>.Failure("Expense not found");
-
-            var expenseDto = _mapper.Map<ExpenseDto>(expense);
-            return Result<ExpenseDto>.Success(expenseDto);
+            var dto = _mapper.Map<ExpenseDto>(expense);
+            return Result<ExpenseDto>.Success(dto);
         }
     }
 }

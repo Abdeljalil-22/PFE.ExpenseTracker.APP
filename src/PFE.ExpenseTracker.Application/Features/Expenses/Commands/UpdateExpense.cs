@@ -62,39 +62,23 @@ namespace PFE.ExpenseTracker.Application.Features.Expenses.Commands
         {
             var expense = await _expenseRepository.GetByIdAsync(request.Id);
             if (expense == null)
-                throw new NotFoundException(nameof(Expense), request.Id);
-
+                return Result<ExpenseDto>.Failure("Expense not found");
             if (expense.UserId != request.UserId)
-                throw new UnauthorizedAccessException();
+                return Result<ExpenseDto>.Failure("Unauthorized");
 
             var category = await _categoryRepository.GetByIdAsync(request.CategoryId);
             if (category == null)
                 return Result<ExpenseDto>.Failure("Category not found");
 
-            // If category changed, update both old and new budgets
-            if (expense.CategoryId != request.CategoryId)
+            // Optionally update budget spent amount if amount or category changed
+            if (expense.Amount != request.Amount || expense.CategoryId != request.CategoryId)
             {
                 var oldBudget = await _budgetRepository.GetBudgetByCategoryAsync(request.UserId, expense.CategoryId);
                 if (oldBudget != null)
-                {
                     await _budgetRepository.UpdateBudgetSpentAmountAsync(oldBudget.Id, -expense.Amount);
-                }
-
                 var newBudget = await _budgetRepository.GetBudgetByCategoryAsync(request.UserId, request.CategoryId);
                 if (newBudget != null)
-                {
                     await _budgetRepository.UpdateBudgetSpentAmountAsync(newBudget.Id, request.Amount);
-                }
-            }
-            // If only amount changed, update current budget
-            else if (expense.Amount != request.Amount)
-            {
-                var budget = await _budgetRepository.GetBudgetByCategoryAsync(request.UserId, request.CategoryId);
-                if (budget != null)
-                {
-                    var difference = request.Amount - expense.Amount;
-                    await _budgetRepository.UpdateBudgetSpentAmountAsync(budget.Id, difference);
-                }
             }
 
             expense.Description = request.Description;
@@ -109,26 +93,20 @@ namespace PFE.ExpenseTracker.Application.Features.Expenses.Commands
             await _expenseRepository.UpdateAsync(expense);
             await _expenseRepository.SaveChangesAsync();
 
-            return Result<ExpenseDto>.Success(new ExpenseDto
+            var dto = new ExpenseDto
             {
                 Id = expense.Id,
+                UserId = expense.UserId,
                 Description = expense.Description,
                 Amount = expense.Amount,
                 Date = expense.Date,
+                CategoryId = expense.CategoryId,
                 IsRecurring = expense.IsRecurring,
                 RecurringFrequency = expense.RecurringFrequency,
                 IsShared = expense.IsShared,
-                Notes = expense.Notes,
-                Category = new CategoryDto
-                {
-                    Id = category.Id,
-                    Name = category.Name,
-                    Description = category.Description,
-                    Icon = category.Icon,
-                    Color = category.Color,
-                    IsDefault = category.IsDefault
-                }
-            });
+                Notes = expense.Notes
+            };
+            return Result<ExpenseDto>.Success(dto);
         }
     }
 }

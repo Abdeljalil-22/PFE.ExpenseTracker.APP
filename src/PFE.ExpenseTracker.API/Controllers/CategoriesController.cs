@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using PFE.ExpenseTracker.Application.Features.Categories.Commands;
 using PFE.ExpenseTracker.Application.Features.Categories.Queries;
+using MediatR;
 
 namespace PFE.ExpenseTracker.API.Controllers
 {

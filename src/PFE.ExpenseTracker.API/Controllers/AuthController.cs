@@ -2,6 +2,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using PFE.ExpenseTracker.Application.Features.Auth.Commands;
+using MediatR;
 
 namespace PFE.ExpenseTracker.API.Controllers
 {

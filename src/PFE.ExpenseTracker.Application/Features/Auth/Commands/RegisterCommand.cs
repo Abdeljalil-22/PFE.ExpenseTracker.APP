@@ -71,47 +71,27 @@ namespace PFE.ExpenseTracker.Application.Features.Auth.Commands
 
             var user = new User
             {
+                Id = Guid.NewGuid(),
                 Email = request.Email,
                 UserName = request.UserName,
+                PasswordHash = BCrypt.Net.BCrypt.HashPassword(request.Password),
                 FirstName = request.FirstName,
                 LastName = request.LastName,
-                PasswordHash = BCrypt.Net.BCrypt.HashPassword(request.Password),
-                IsActive = true,
-                Preferences = new UserPreferences
-                {
-                    Currency = "USD",
-                    Language = "en",
-                    DarkMode = false,
-                    EmailNotifications = true,
-                    PushNotifications = true
-                }
+                IsActive = true
             };
 
             await _userRepository.AddAsync(user);
             await _userRepository.SaveChangesAsync();
 
             var token = _jwtService.GenerateJwtToken(user);
-
-            return Result<AuthenticationResponse>.Success(new AuthenticationResponse
+            var response = new AuthenticationResponse
             {
-                Token = token,
-                User = new UserDto
-                {
-                    Id = user.Id,
-                    Email = user.Email,
-                    UserName = user.UserName,
-                    FirstName = user.FirstName,
-                    LastName = user.LastName,
-                    Preferences = new UserPreferencesDto
-                    {
-                        Currency = user.Preferences.Currency,
-                        Language = user.Preferences.Language,
-                        DarkMode = user.Preferences.DarkMode,
-                        EmailNotifications = user.Preferences.EmailNotifications,
-                        PushNotifications = user.Preferences.PushNotifications
-                    }
-                }
-            });
+                UserId = user.Id,
+                Email = user.Email,
+                UserName = user.UserName,
+                Token = token
+            };
+            return Result<AuthenticationResponse>.Success(response);
         }
     }
 }

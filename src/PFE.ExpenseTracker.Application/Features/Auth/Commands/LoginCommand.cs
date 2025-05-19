@@ -43,10 +43,10 @@ namespace PFE.ExpenseTracker.Application.Features.Auth.Commands
         {
             var user = await _userRepository.GetByEmailAsync(request.Email);
 
-            // if (user == null || !BCrypt.Net.BCrypt.Verify(request.Password, user.PasswordHash))
-            // {
-            //     return Result<AuthenticationResponse>.Failure("Invalid email or password");
-            // }
+            if (user == null || !BCrypt.Net.BCrypt.Verify(request.Password, user.PasswordHash))
+            {
+                return Result<AuthenticationResponse>.Failure("Invalid email or password");
+            }
 
             if (!user.IsActive)
             {
@@ -54,27 +54,14 @@ namespace PFE.ExpenseTracker.Application.Features.Auth.Commands
             }
 
             var token = _jwtService.GenerateJwtToken(user);
-
-            return Result<AuthenticationResponse>.Success(new AuthenticationResponse
+            var response = new AuthenticationResponse
             {
-                Token = token,
-                User = new UserDto
-                {
-                    Id = user.Id,
-                    Email = user.Email,
-                    UserName = user.UserName,
-                    FirstName = user.FirstName,
-                    LastName = user.LastName,
-                    Preferences = new UserPreferencesDto
-                    {
-                        Currency = user.Preferences.Currency,
-                        Language = user.Preferences.Language,
-                        DarkMode = user.Preferences.DarkMode,
-                        EmailNotifications = user.Preferences.EmailNotifications,
-                        PushNotifications = user.Preferences.PushNotifications
-                    }
-                }
-            });
+                UserId = user.Id,
+                Email = user.Email,
+                UserName = user.UserName,
+                Token = token
+            };
+            return Result<AuthenticationResponse>.Success(response);
         }
     }
 }

@@ -63,8 +63,15 @@ namespace PFE.ExpenseTracker.Application.Features.Expenses.Commands
             if (category == null)
                 return Result<ExpenseDto>.Failure("Category not found");
 
-            var expense = new Expense
+            var budget = await _budgetRepository.GetBudgetByCategoryAsync(request.UserId, request.CategoryId);
+            if (budget != null)
             {
+                await _budgetRepository.UpdateBudgetSpentAmountAsync(budget.Id, request.Amount);
+            }
+
+            var expense = new Domain.Entities.Expense
+            {
+                Id = Guid.NewGuid(),
                 UserId = request.UserId,
                 Description = request.Description,
                 Amount = request.Amount,
@@ -75,38 +82,23 @@ namespace PFE.ExpenseTracker.Application.Features.Expenses.Commands
                 IsShared = request.IsShared,
                 Notes = request.Notes
             };
-
             await _expenseRepository.AddAsync(expense);
-
-            // Update budget if exists
-            var budget = await _budgetRepository.GetBudgetByCategoryAsync(request.UserId, request.CategoryId);
-            if (budget != null)
-            {
-                await _budgetRepository.UpdateBudgetSpentAmountAsync(budget.Id, request.Amount);
-            }
-
             await _expenseRepository.SaveChangesAsync();
 
-            return Result<ExpenseDto>.Success(new ExpenseDto
+            var dto = new ExpenseDto
             {
                 Id = expense.Id,
+                UserId = expense.UserId,
                 Description = expense.Description,
                 Amount = expense.Amount,
                 Date = expense.Date,
+                CategoryId = expense.CategoryId,
                 IsRecurring = expense.IsRecurring,
                 RecurringFrequency = expense.RecurringFrequency,
                 IsShared = expense.IsShared,
-                Notes = expense.Notes,
-                Category = new CategoryDto
-                {
-                    Id = category.Id,
-                    Name = category.Name,
-                    Description = category.Description,
-                    Icon = category.Icon,
-                    Color = category.Color,
-                    IsDefault = category.IsDefault
-                }
-            });
+                Notes = expense.Notes
+            };
+            return Result<ExpenseDto>.Success(dto);
         }
     }
 }

@@ -6,13 +6,18 @@
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
     <NoWarn>$(NoWarn);1591</NoWarn>
   </PropertyGroup>
-
+ <ItemGroup>
+   <PackageReference Include="JWT" Version="11.0.0" />
+   <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="8.0.16" />
+   <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="8.0.14" />
+   <PackageReference Include="Swashbuckle.AspNetCore" Version="6.6.2" />
+   <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="8.10.0" />
+   <PackageReference Include="WebMotions.Fake.Authentication.JwtBearer" Version="8.0.2" />
+ </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="8.0.14" />
-    <PackageReference Include="Swashbuckle.AspNetCore" Version="6.6.2" />
-  </ItemGroup>
-   <ItemGroup>
-    <ProjectReference Include="..\PFE.ExpenseTracker.Application\PFE.ExpenseTracker.Application.csproj" />
-  </ItemGroup>
+   <ProjectReference Include="..\PFE.ExpenseTracker.Application\PFE.ExpenseTracker.Application.csproj" />
+   <ProjectReference Include="..\PFE.ExpenseTracker.Infrastructure\PFE.ExpenseTracker.Infrastructure.csproj" />
+ </ItemGroup>
+
 
 </Project>
