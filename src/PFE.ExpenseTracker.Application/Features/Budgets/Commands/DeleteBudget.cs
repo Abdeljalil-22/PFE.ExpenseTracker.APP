@@ -2,6 +2,7 @@ using System;
 using System.Threading;
 using System.Threading.Tasks;
 using MediatR;
+using AutoMapper;
 using PFE.ExpenseTracker.Application.Common.Interfaces;
 using PFE.ExpenseTracker.Application.Common.Models;
 using PFE.ExpenseTracker.Application.Common.Exceptions;
@@ -28,7 +29,7 @@ namespace PFE.ExpenseTracker.Application.Features.Budgets.Commands
             var budget = await _budgetRepository.GetByIdAsync(request.Id);
             
             if (budget == null)
-                throw new NotFoundException(nameof(Budget), request.Id);
+                throw new NotFoundException(nameof(budget), request.Id);
 
             if (budget.UserId != request.UserId)
                 throw new UnauthorizedAccessException();

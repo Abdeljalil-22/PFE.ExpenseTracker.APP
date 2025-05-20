@@ -44,7 +44,12 @@ namespace PFE.ExpenseTracker.Infrastructure.Repositories
                 .ToListAsync();
         }
 
-        public override async Task<Expense> GetByIdAsync(Guid id)
+        public async Task<bool> HasExpensesInCategoryAsync(Guid categoryId)
+        {
+            return await _dbSet.AnyAsync(e => e.CategoryId == categoryId);
+        }
+
+        public override async Task<Expense?> GetByIdAsync(Guid id)
         {
             return await _dbSet
                 .Include(e => e.Category)

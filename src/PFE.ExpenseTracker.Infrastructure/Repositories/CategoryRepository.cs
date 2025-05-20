@@ -31,7 +31,13 @@ namespace PFE.ExpenseTracker.Infrastructure.Repositories
                 .ToListAsync();
         }
 
-        public override async Task<Category> GetByIdAsync(Guid id)
+        public async Task<Category?> GetByNameAsync(Guid userId, string name)
+        {
+            return await _dbSet
+                .FirstOrDefaultAsync(c => c.UserId == userId && c.Name.ToLower() == name.ToLower());
+        }
+
+        public override async Task<Category?> GetByIdAsync(Guid id)
         {
             return await _dbSet
                 .Include(c => c.Expenses)

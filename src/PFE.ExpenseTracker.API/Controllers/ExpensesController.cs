@@ -1,7 +1,10 @@
 using System;
+using System.Security.Claims;
 using System.Threading.Tasks;
+using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using PFE.ExpenseTracker.Application.Common.Models;
 using PFE.ExpenseTracker.Application.Features.Expenses.Commands;
 using PFE.ExpenseTracker.Application.Features.Expenses.Queries;
 
@@ -97,18 +100,18 @@ namespace PFE.ExpenseTracker.API.Controllers
             return NoContent();
         }
 
-        [HttpPost("{id}/attachments")]
-        public async Task<IActionResult> AddAttachment(Guid id, [FromForm] AddExpenseAttachmentCommand command)
-        {
-            command.ExpenseId = id;
-            var userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
-            command.UserId = Guid.Parse(userId);
+        // [HttpPost("{id}/attachments")]
+        // public async Task<IActionResult> AddAttachment(Guid id, [FromForm] AddExpenseAttachmentCommand command)
+        // {
+        //     command.ExpenseId = id;
+        //     var userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+        //     command.UserId = Guid.Parse(userId);
             
-            var result = await _mediator.Send(command);
-            if (!result.Succeeded)
-                return BadRequest(result.Errors);
+        //     var result = await _mediator.Send(command);
+        //     if (!result.Succeeded)
+        //         return BadRequest(result.Errors);
             
-            return Ok(result.Data);
-        }
+        //     return Ok(result.Data);
+        // }
     }
 }

@@ -88,11 +88,11 @@ namespace PFE.ExpenseTracker.Application.Features.Expenses.Commands
             var dto = new ExpenseDto
             {
                 Id = expense.Id,
-                UserId = expense.UserId,
+                // UserId = expense.UserId,
                 Description = expense.Description,
                 Amount = expense.Amount,
                 Date = expense.Date,
-                CategoryId = expense.CategoryId,
+                // CategoryId = expense.CategoryId,
                 IsRecurring = expense.IsRecurring,
                 RecurringFrequency = expense.RecurringFrequency,
                 IsShared = expense.IsShared,

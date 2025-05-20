@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 using PFE.ExpenseTracker.Application.Features.FinancialGoals.Commands;
 using PFE.ExpenseTracker.Application.Features.FinancialGoals.Queries;
 using System.Security.Claims;
+using MediatR;
 
 namespace PFE.ExpenseTracker.API.Controllers
 {

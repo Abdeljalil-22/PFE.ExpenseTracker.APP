@@ -18,8 +18,16 @@ namespace PFE.ExpenseTracker.Infrastructure.Repositories
         public async Task<IEnumerable<FinancialGoal>> GetUserGoalsAsync(Guid userId)
         {
             return await _dbSet
-                .Include(g => g.Contributions)
                 .Where(g => g.UserId == userId)
+                .OrderBy(g => g.TargetDate)
+                .ToListAsync();
+        }
+
+        public async Task<IEnumerable<FinancialGoal>> GetUserGoalsByStatusAsync(Guid userId, string status)
+        {
+            return await _dbSet
+                .Include(g => g.Contributions)
+                .Where(g => g.UserId == userId && g.Status == status)
                 .OrderByDescending(g => g.StartDate)
                 .ToListAsync();
         }
@@ -38,7 +46,7 @@ namespace PFE.ExpenseTracker.Infrastructure.Repositories
             }
         }
 
-        public override async Task<FinancialGoal> GetByIdAsync(Guid id)
+        public override async Task<FinancialGoal?> GetByIdAsync(Guid id)
         {
             return await _dbSet
                 .Include(g => g.Contributions)

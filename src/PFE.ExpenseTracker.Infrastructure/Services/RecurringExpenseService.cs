@@ -50,46 +50,46 @@ namespace PFE.ExpenseTracker.Infrastructure.Services
             var notificationService = scope.ServiceProvider.GetRequiredService<INotificationService>();
 
             var today = DateTime.UtcNow.Date;
-            var recurringExpenses = await expenseRepository.GetRecurringExpensesAsync();
+            // var recurringExpenses = await expenseRepository.GetRecurringExpensesAsync();
 
-            foreach (var expense in recurringExpenses)
-            {
-                if (expense.NextRecurringDate?.Date == today)
-                {
-                    // Create new expense instance
-                    var newExpense = new Expense
-                    {
-                        UserId = expense.UserId,
-                        CategoryId = expense.CategoryId,
-                        Description = expense.Description,
-                        Amount = expense.Amount,
-                        Date = today,
-                        IsRecurring = true,
-                        RecurringFrequency = expense.RecurringFrequency,
-                        Notes = expense.Notes
-                    };
+            // foreach (var expense in recurringExpenses)
+            // {
+            //     if (expense.NextRecurringDate?.Date == today)
+            //     {
+            //         // Create new expense instance
+            //         var newExpense = new Expense
+            //         {
+            //             UserId = expense.UserId,
+            //             CategoryId = expense.CategoryId,
+            //             Description = expense.Description,
+            //             Amount = expense.Amount,
+            //             Date = today,
+            //             IsRecurring = true,
+            //             RecurringFrequency = expense.RecurringFrequency,
+            //             Notes = expense.Notes
+            //         };
 
-                    // Set next recurring date based on frequency
-                    expense.NextRecurringDate = expense.RecurringFrequency.ToLower() switch
-                    {
-                        "daily" => today.AddDays(1),
-                        "weekly" => today.AddDays(7),
-                        "monthly" => today.AddMonths(1),
-                        "yearly" => today.AddYears(1),
-                        _ => null
-                    };
+            //         // Set next recurring date based on frequency
+            //         expense.NextRecurringDate = expense.RecurringFrequency.ToLower() switch
+            //         {
+            //             "daily" => today.AddDays(1),
+            //             "weekly" => today.AddDays(7),
+            //             "monthly" => today.AddMonths(1),
+            //             "yearly" => today.AddYears(1),
+            //             _ => null
+            //         };
 
-                    await expenseRepository.AddAsync(newExpense);
-                    await expenseRepository.UpdateAsync(expense);
-                    await expenseRepository.SaveChangesAsync();
+            //         await expenseRepository.AddAsync(newExpense);
+            //         await expenseRepository.UpdateAsync(expense);
+            //         await expenseRepository.SaveChangesAsync();
 
-                    // Create notification for the next occurrence
-                    if (expense.NextRecurringDate.HasValue)
-                    {
-                        await notificationService.CreateRecurringExpenseReminderAsync(expense);
-                    }
-                }
-            }
+            //         // Create notification for the next occurrence
+            //         if (expense.NextRecurringDate.HasValue)
+            //         {
+            //             await notificationService.CreateRecurringExpenseReminderAsync(expense);
+            //         }
+                // }
+            // }
         }
     }
 }

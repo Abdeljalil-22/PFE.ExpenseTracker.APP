@@ -18,12 +18,14 @@ namespace PFE.ExpenseTracker.Application.Common.Interfaces
         Task<IEnumerable<Expense>> GetUserExpensesAsync(Guid userId);
         Task<IEnumerable<Expense>> GetExpensesByCategoryAsync(Guid userId, Guid categoryId);
         Task<IEnumerable<Expense>> GetRecurringExpensesAsync(Guid userId);
+        Task<bool> HasExpensesInCategoryAsync(Guid categoryId);
     }
 
     public interface ICategoryRepository : IRepository<Category>
     {
         Task<IEnumerable<Category>> GetUserCategoriesAsync(Guid userId);
         Task<IEnumerable<Category>> GetDefaultCategoriesAsync();
+        Task<Category?> GetByNameAsync(Guid userId,string name);
     }
 
     public interface IBudgetRepository : IRepository<Budget>
@@ -36,7 +38,10 @@ namespace PFE.ExpenseTracker.Application.Common.Interfaces
     public interface IFinancialGoalRepository : IRepository<FinancialGoal>
     {
         Task<IEnumerable<FinancialGoal>> GetUserGoalsAsync(Guid userId);
+        Task<IEnumerable<FinancialGoal>> GetUserGoalsByStatusAsync(Guid userId, string status);
+
         Task UpdateGoalProgressAsync(Guid goalId, decimal amount);
+        
     }
 
     public interface INotificationRepository : IRepository<Notification>

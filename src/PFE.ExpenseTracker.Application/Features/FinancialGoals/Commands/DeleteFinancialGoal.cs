@@ -2,6 +2,7 @@ using System;
 using System.Threading;
 using System.Threading.Tasks;
 using MediatR;
+using AutoMapper;
 using PFE.ExpenseTracker.Application.Common.Interfaces;
 using PFE.ExpenseTracker.Application.Common.Models;
 using PFE.ExpenseTracker.Application.Common.Exceptions;
@@ -28,7 +29,7 @@ namespace PFE.ExpenseTracker.Application.Features.FinancialGoals.Commands
             var goal = await _goalRepository.GetByIdAsync(request.Id);
             
             if (goal == null)
-                throw new NotFoundException(nameof(FinancialGoal), request.Id);
+                throw new NotFoundException(nameof(goal), request.Id);
 
             if (goal.UserId != request.UserId)
                 throw new UnauthorizedAccessException();

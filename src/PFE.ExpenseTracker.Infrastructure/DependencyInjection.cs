@@ -5,6 +5,7 @@ using PFE.ExpenseTracker.Application.Common.Interfaces;
 using PFE.ExpenseTracker.Infrastructure.Authentication;
 using PFE.ExpenseTracker.Infrastructure.Persistence;
 using PFE.ExpenseTracker.Infrastructure.Repositories;
+using PFE.ExpenseTracker.Infrastructure.Services;
 
 namespace PFE.ExpenseTracker.Infrastructure
 {
@@ -25,7 +26,7 @@ namespace PFE.ExpenseTracker.Infrastructure
             services.AddScoped<INotificationRepository, NotificationRepository>();
             services.AddScoped<IJwtAuthenticationService, JwtAuthenticationService>();
             services.AddScoped<INotificationService, NotificationService>();
-            services.AddScoped<IFileStorageService, FileStorageService>();
+            // services.AddScoped<IFileStorageService, FileStorageService>();
             services.AddScoped<IReportService, ReportService>();
             services.AddScoped<ApplicationDbInitializer>();
 

@@ -56,10 +56,18 @@ namespace PFE.ExpenseTracker.Application.Features.Auth.Commands
             var token = _jwtService.GenerateJwtToken(user);
             var response = new AuthenticationResponse
             {
-                UserId = user.Id,
-                Email = user.Email,
-                UserName = user.UserName,
-                Token = token
+                // UserId = user.Id,
+                // Email = user.Email,
+                // UserName = user.UserName,
+                Token = token,
+                 User= new UserDto
+                {
+                    Id = user.Id,
+                    Email = user.Email,
+                    UserName = user.UserName,
+                    FirstName = user.FirstName,
+                    LastName = user.LastName
+                }
             };
             return Result<AuthenticationResponse>.Success(response);
         }

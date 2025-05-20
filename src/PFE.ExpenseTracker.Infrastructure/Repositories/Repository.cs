@@ -18,7 +18,7 @@ namespace PFE.ExpenseTracker.Infrastructure.Repositories
             _dbSet = context.Set<TEntity>();
         }
 
-        public virtual async Task<TEntity> GetByIdAsync(Guid id)
+        public virtual async Task<TEntity?> GetByIdAsync(Guid id)
         {
             return await _dbSet.FindAsync(id);
         }

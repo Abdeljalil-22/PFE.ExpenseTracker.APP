@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using PFE.ExpenseTracker.Application.Features.Users.Commands;
 using System.Security.Claims;
+using MediatR;
 
 namespace PFE.ExpenseTracker.API.Controllers
 {
@@ -32,17 +33,17 @@ namespace PFE.ExpenseTracker.API.Controllers
             return Ok(result.Data);
         }
 
-        [HttpGet("preferences")]
-        public async Task<IActionResult> GetPreferences()
-        {
-            var userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
-            var query = new GetUserPreferencesQuery { UserId = Guid.Parse(userId) };
+        // [HttpGet("preferences")]
+        // public async Task<IActionResult> GetPreferences()
+        // {
+        //     var userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+        //     var query = new GetUserPreferencesQuery { UserId = Guid.Parse(userId) };
             
-            var result = await _mediator.Send(query);
-            if (!result.Succeeded)
-                return BadRequest(result.Errors);
+        //     var result = await _mediator.Send(query);
+        //     if (!result.Succeeded)
+        //         return BadRequest(result.Errors);
             
-            return Ok(result.Data);
-        }
+        //     return Ok(result.Data);
+        // }
     }
 }
