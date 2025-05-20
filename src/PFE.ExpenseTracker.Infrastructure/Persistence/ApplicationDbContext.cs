@@ -124,6 +124,17 @@ namespace PFE.ExpenseTracker.Infrastructure.Persistence
                     .HasForeignKey(e => e.ExpenseId)
                     .OnDelete(DeleteBehavior.Cascade);
             });
+
+            modelBuilder.Entity<GoalContribution>(entity =>
+            {
+                entity.HasKey(e => e.Id);
+                entity.Property(e => e.Amount).HasPrecision(18, 2);
+                
+                entity.HasOne(e => e.FinancialGoal)
+                    .WithMany(e => e.Contributions)
+                    .HasForeignKey(e => e.FinancialGoalId)
+                    .OnDelete(DeleteBehavior.Cascade);
+            });
         }
     }
 }

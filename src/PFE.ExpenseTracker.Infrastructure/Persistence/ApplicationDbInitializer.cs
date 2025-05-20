@@ -52,19 +52,38 @@ namespace PFE.ExpenseTracker.Infrastructure.Persistence
 
         private async Task TrySeedAsync()
         {
+            // Default User
+            var defaultUser = await _context.Users.FirstOrDefaultAsync(u => u.Email == "admin@expensetracker.com");
+            if (defaultUser == null)
+            {
+                defaultUser = new User
+                {
+                    Id = Guid.NewGuid(),
+                    Email = "admin@expensetracker.com",
+                    UserName = "admin",
+                    FirstName = "Admin",
+                    LastName = "User",
+                    IsActive = true,
+                    CreatedAt = DateTime.UtcNow,
+                    PasswordHash = "admin" // TODO: Replace with a real hash in production
+                };
+                await _context.Users.AddAsync(defaultUser);
+                await _context.SaveChangesAsync();
+            }
+
             // Default Categories
             if (!_context.Categories.Any(c => c.IsDefault))
             {
                 var defaultCategories = new[]
                 {
-                    new Category { Name = "Food & Dining", Description = "Restaurants, groceries, and dining", Icon = "🍽️", Color = "#FF4081", IsDefault = true },
-                    new Category { Name = "Transportation", Description = "Public transport, fuel, and vehicle expenses", Icon = "🚗", Color = "#2196F3", IsDefault = true },
-                    new Category { Name = "Housing", Description = "Rent, utilities, and maintenance", Icon = "🏠", Color = "#4CAF50", IsDefault = true },
-                    new Category { Name = "Entertainment", Description = "Movies, games, and leisure activities", Icon = "🎮", Color = "#9C27B0", IsDefault = true },
-                    new Category { Name = "Shopping", Description = "Clothing, accessories, and personal items", Icon = "🛍️", Color = "#FF9800", IsDefault = true },
-                    new Category { Name = "Healthcare", Description = "Medical expenses and healthcare", Icon = "⚕️", Color = "#F44336", IsDefault = true },
-                    new Category { Name = "Education", Description = "Courses, books, and learning materials", Icon = "📚", Color = "#795548", IsDefault = true },
-                    new Category { Name = "Bills & Utilities", Description = "Regular bills and utility payments", Icon = "📱", Color = "#607D8B", IsDefault = true },
+                    new Category { Name = "Food & Dining", Description = "Restaurants, groceries, and dining", Icon = "🍽️", Color = "#FF4081", IsDefault = true, UserId = defaultUser.Id },
+                    new Category { Name = "Transportation", Description = "Public transport, fuel, and vehicle expenses", Icon = "🚗", Color = "#2196F3", IsDefault = true, UserId = defaultUser.Id },
+                    new Category { Name = "Housing", Description = "Rent, utilities, and maintenance", Icon = "🏠", Color = "#4CAF50", IsDefault = true, UserId = defaultUser.Id },
+                    new Category { Name = "Entertainment", Description = "Movies, games, and leisure activities", Icon = "🎮", Color = "#9C27B0", IsDefault = true, UserId = defaultUser.Id },
+                    new Category { Name = "Shopping", Description = "Clothing, accessories, and personal items", Icon = "🛍️", Color = "#FF9800", IsDefault = true, UserId = defaultUser.Id },
+                    new Category { Name = "Healthcare", Description = "Medical expenses and healthcare", Icon = "⚕️", Color = "#F44336", IsDefault = true, UserId = defaultUser.Id },
+                    new Category { Name = "Education", Description = "Courses, books, and learning materials", Icon = "📚", Color = "#795548", IsDefault = true, UserId = defaultUser.Id },
+                    new Category { Name = "Bills & Utilities", Description = "Regular bills and utility payments", Icon = "📱", Color = "#607D8B", IsDefault = true, UserId = defaultUser.Id },
                 };
 
                 foreach (var category in defaultCategories)
