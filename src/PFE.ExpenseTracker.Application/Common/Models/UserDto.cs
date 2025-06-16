@@ -2,6 +2,7 @@ using System;
 
 namespace PFE.ExpenseTracker.Application.Common.Models
 {
+    
     public class UserDto
     {
         public Guid Id { get; set; }
