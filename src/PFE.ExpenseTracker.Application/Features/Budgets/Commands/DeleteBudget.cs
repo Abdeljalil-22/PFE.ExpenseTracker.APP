@@ -1,8 +1,4 @@
-using System;
-using System.Threading;
-using System.Threading.Tasks;
 using MediatR;
-using AutoMapper;
 using PFE.ExpenseTracker.Application.Common.Interfaces;
 using PFE.ExpenseTracker.Application.Common.Models;
 using PFE.ExpenseTracker.Application.Common.Exceptions;

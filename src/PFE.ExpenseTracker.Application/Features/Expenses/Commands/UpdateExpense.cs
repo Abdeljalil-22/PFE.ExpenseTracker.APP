@@ -1,9 +1,5 @@
-using System;
-using System.Threading;
-using System.Threading.Tasks;
 using FluentValidation;
 using MediatR;
-using PFE.ExpenseTracker.Application.Common.Exceptions;
 using PFE.ExpenseTracker.Application.Common.Interfaces;
 using PFE.ExpenseTracker.Application.Common.Models;
 
@@ -96,11 +92,15 @@ namespace PFE.ExpenseTracker.Application.Features.Expenses.Commands
             var dto = new ExpenseDto
             {
                 Id = expense.Id,
-                // UserId = expense.UserId,
                 Description = expense.Description,
                 Amount = expense.Amount,
                 Date = expense.Date,
-                // CategoryId = expense.CategoryId,
+                Category = new CategoryDto
+                {
+                    Id = category.Id,
+                    Name = category.Name,
+                    Icon = category.Icon
+                },
                 IsRecurring = expense.IsRecurring,
                 RecurringFrequency = expense.RecurringFrequency,
                 IsShared = expense.IsShared,

@@ -29,7 +29,7 @@ namespace PFE.ExpenseTracker.Application.Common.Mappings
 
             CreateMap<GoalContribution, GoalContributionDto>();
 
-            // CreateMap<Notification, NotificationDto>();
+            CreateMap<Notification, NotificationDto>();
         }
     }
 }

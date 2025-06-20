@@ -14,6 +14,12 @@ namespace PFE.ExpenseTracker.Infrastructure.Repositories
         {
         }
 
+        public async Task<User> GetByIdAsync(Guid id)
+        {
+            return await _dbSet
+                .Include(u => u.Preferences)
+                .FirstOrDefaultAsync(u => u.Id == id);
+        }
         public async Task<User> GetByEmailAsync(string email)
         {
             return await _dbSet

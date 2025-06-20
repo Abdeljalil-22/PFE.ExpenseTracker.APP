@@ -1,6 +1,3 @@
-using System;
-using System.Collections.Generic;
-using System.Threading.Tasks;
 
 namespace PFE.ExpenseTracker.Application.Common.Interfaces
 {

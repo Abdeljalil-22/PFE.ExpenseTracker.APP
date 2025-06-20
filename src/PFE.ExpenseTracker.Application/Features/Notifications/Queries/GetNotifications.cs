@@ -1,7 +1,3 @@
-using System;
-using System.Collections.Generic;
-using System.Threading;
-using System.Threading.Tasks;
 using AutoMapper;
 using MediatR;
 using PFE.ExpenseTracker.Application.Common.Interfaces;
@@ -9,15 +5,7 @@ using PFE.ExpenseTracker.Application.Common.Models;
 
 namespace PFE.ExpenseTracker.Application.Features.Notifications.Queries
 {
-    public class NotificationDto
-    {
-        public Guid Id { get; set; }
-        public string Title { get; set; }
-        public string Message { get; set; }
-        public string Type { get; set; }
-        public bool IsRead { get; set; }
-        public DateTime CreatedAt { get; set; }
-    }
+   
 
     public class GetNotificationsQuery : IRequest<Result<List<NotificationDto>>>
     {
