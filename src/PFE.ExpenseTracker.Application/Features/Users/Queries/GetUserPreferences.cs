@@ -28,7 +28,7 @@ namespace PFE.ExpenseTracker.Application.Features.Users.Queries;
             if (user == null)
                 return Result<UserPreferencesDto>.Failure("Preferences not found");
 
-            var userDto = _mapper.Map<UserDto>(user);
-            return Result<UserPreferencesDto>.Success(userDto.Preferences);
+            var PreferencesDto = _mapper.Map<UserPreferencesDto>(user.Preferences);
+            return Result<UserPreferencesDto>.Success(PreferencesDto);
         }
     }
