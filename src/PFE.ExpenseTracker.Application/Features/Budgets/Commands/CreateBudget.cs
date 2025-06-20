@@ -1,6 +1,3 @@
-using System;
-using System.Threading;
-using System.Threading.Tasks;
 using FluentValidation;
 using MediatR;
 using AutoMapper;
@@ -79,7 +76,6 @@ namespace PFE.ExpenseTracker.Application.Features.Budgets.Commands
                 SpentAmount = 0,
                 StartDate = request.StartDate,
                 EndDate = request.EndDate,
-                // Period = request.Period
             };
 
             await _budgetRepository.AddAsync(budget);

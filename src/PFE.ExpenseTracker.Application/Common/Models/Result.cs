@@ -3,8 +3,8 @@ namespace PFE.ExpenseTracker.Application.Common.Models
     public class Result<T>
     {
         public bool Succeeded { get; set; }
-        public T Data { get; set; }
-        public string[] Errors { get; set; }
+        public T Data { get; set; } = default!;
+        public string[] Errors { get; set; } = Array.Empty<string>();
 
         public static Result<T> Success(T data)
         {

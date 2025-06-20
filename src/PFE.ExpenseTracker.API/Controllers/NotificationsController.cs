@@ -72,15 +72,15 @@ namespace PFE.ExpenseTracker.API.Controllers
         public async Task<IActionResult> Delete(Guid id)
         {
             var userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
-            // var command = new DeleteNotificationCommand 
-            // { 
-            //     Id = id,
-            //     UserId = Guid.Parse(userId)
-            // };
+            var command = new DeleteNotificationCommand 
+            { 
+                Id = id,
+                UserId = Guid.Parse(userId)
+            };
             
-            // var result = await _mediator.Send(command);
-            // if (!result.Succeeded)
-            //     return BadRequest(result.Errors);
+            var result = await _mediator.Send(command);
+            if (!result.Succeeded)
+                return BadRequest(result.Errors);
             
             return NoContent();
         }
