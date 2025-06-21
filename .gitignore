@@ -36,7 +36,7 @@ publish/
 *.tmp
 
 # Dotnet EF migrations
-Migrations/
+# Migrations/
 
 # Ignore local settings
 appsettings.Development.json

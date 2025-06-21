@@ -52,6 +52,12 @@ namespace PFE.ExpenseTracker.Infrastructure.Persistence
 
         private async Task TrySeedAsync()
         {
+            // Ensure database is up to date
+            if (_context.Database.IsSqlServer())
+            {
+                await _context.Database.MigrateAsync();
+            }
+
             // Default User
             var defaultUser = await _context.Users.FirstOrDefaultAsync(u => u.Email == "admin@expensetracker.com");
             if (defaultUser == null)
