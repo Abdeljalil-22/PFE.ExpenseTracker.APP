@@ -34,6 +34,9 @@ namespace PFE.ExpenseTracker.Infrastructure
             services.AddHostedService<RecurringExpenseService>();
             services.AddHostedService<BudgetAlertService>();
 
+            // Register GeminiAIService
+            services.AddScoped<GeminiAIService>();
+
             return services;
         }
     }
