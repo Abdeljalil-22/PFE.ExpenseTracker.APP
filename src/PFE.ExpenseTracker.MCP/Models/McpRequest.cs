@@ -6,6 +6,7 @@ public class McpRequest
     public string? Prompt { get; set; }
     public string? UserId { get; set; }
     public Dictionary<string, object> Context { get; set; } = new();
+    public List<string>? History { get; set; } = new();
 }
 
 public class McpResponse
@@ -15,6 +16,7 @@ public class McpResponse
     public Dictionary<string, object> Data { get; set; } = new();
     public bool Success { get; set; }
     public string? Error { get; set; }
+    public List<string>? History { get; set; } = new();
 }
 
 public class McpAction

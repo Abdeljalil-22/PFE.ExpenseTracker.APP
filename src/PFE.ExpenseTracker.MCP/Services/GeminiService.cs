@@ -30,8 +30,11 @@ Budget: name (string), amount (decimal), startDate (ISO 8601), endDate (ISO 8601
 Category: name (string), description (string), color (string), icon (string), id (GUID, for update/delete)
 FinancialGoal: name (string), description (string), targetAmount (decimal), targetDate (ISO 8601), id (GUID, for update/delete)
 
-Always use ISO 8601 for dates. If the user asks for a list, use type: READ. If the user asks to update or delete, require an 'id' parameter. If the intent is ambiguous, return your best guess.
-Return ONLY the JSON object, no extra text.
+Always use ISO 8601 for dates. If the user asks for a list, use type: READ. If the user asks to update or delete, require an 'id' parameter.
+
+If you cannot infer a required parameter (such as amount, name, or id) from the user's prompt, respond with a clear, conversational question asking the user to provide the missing information. For example: "What is the amount for the expense?" or "Which budget do you want to update? Please provide the budget id."
+
+Return ONLY the JSON object if all required information is present. If you need to ask the user for missing info, return ONLY the question as plain text (no JSON, no extra explanation).
 
 Example: For 'add a new expense of 50$ for lunch today', return:
 {
@@ -43,6 +46,9 @@ Example: For 'add a new expense of 50$ for lunch today', return:
     "date": "2025-07-03"
   }
 }
+
+Example: For 'update my budget', return:
+Which budget do you want to update? Please provide the budget id.
 """;
     
 

@@ -37,10 +37,13 @@ public class McpController : ControllerBase
 
         try
         {
-            // Get structured action from Gemini
+            // Prepare chat history
+            var history = request.History ?? new List<string>();
+            history.Add($"User: {request.Prompt}");
 
-            var actionJsonRaw = await _geminiService.GetActionFromPromptAsync(request.Prompt);
-            // Remove markdown code block markers and trim whitespace
+            // Send full history to Gemini
+            var fullPrompt = string.Join("\n", history);
+            var actionJsonRaw = await _geminiService.GetActionFromPromptAsync(fullPrompt);
             _logger.LogInformation("Received Gemini response: {ActionJsonRaw}", actionJsonRaw);
             var actionJson = actionJsonRaw
                 .Replace("```json", "", StringComparison.OrdinalIgnoreCase)
@@ -48,43 +51,54 @@ public class McpController : ControllerBase
                 .Trim();
             _logger.LogInformation("Parsed Gemini response: {ActionJson}", actionJson);
             McpAction? action = null;
+            string aiResponse = null;
             try
             {
                 action = JsonSerializer.Deserialize<McpAction>(actionJson);
                 _logger.LogInformation("Deserialized action: {@Action}", action);
             }
-            catch (Exception ex)
+            catch
             {
-                _logger.LogError(ex, "Failed to parse Gemini response: {Raw}", actionJsonRaw);
-                return BadRequest(new McpResponse
-                {
-                    Success = false,
-                    Error = "Could not interpret the request (invalid JSON from Gemini)",
-                    Data = new Dictionary<string, object> { ["raw"] = actionJsonRaw }
-                });
+                // If not valid JSON, treat as AI follow-up question
+                aiResponse = actionJsonRaw;
             }
 
-            if (action == null)
+            if (action == null && aiResponse == null)
             {
                 return BadRequest(new McpResponse
                 {
                     Success = false,
                     Error = "Could not interpret the request (empty action)",
-                    Data = new Dictionary<string, object> { ["raw"] = actionJsonRaw }
+                    Data = new Dictionary<string, object> { ["raw"] = actionJsonRaw },
+                    History = history
+                });
+            }
+
+            if (aiResponse != null)
+            {
+                history.Add($"AI: {aiResponse}");
+                return Ok(new McpResponse
+                {
+                    Success = false,
+                    Response = aiResponse,
+                    History = history
                 });
             }
 
             // Execute the action
             var result = await _expenseTrackerClient.ExecuteActionAsync(action, request.UserId);
+            var serverResponse = result.Success
+                ? $"Successfully {action.Type.ToLower()}d {action.Entity.ToLower()}"
+                : result.Error;
+            history.Add($"Server: {serverResponse}");
 
             return Ok(new McpResponse
             {
                 Success = result.Success,
-                Response = result.Success
-                    ? $"Successfully {action.Type.ToLower()}d {action.Entity.ToLower()}"
-                    : result.Error,
+                Response = serverResponse,
                 Action = action.Type,
-                Data = result.Data
+                Data = result.Data,
+                History = history
             });
         }
         catch (Exception ex)
@@ -93,7 +107,7 @@ public class McpController : ControllerBase
             return StatusCode(500, new McpResponse
             {
                 Success = false,
-                Error = "An error occurred while processing your request"
+                Error = ex.Message
             });
         }
     }
