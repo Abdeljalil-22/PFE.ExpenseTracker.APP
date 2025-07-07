@@ -7,6 +7,26 @@ using System.Text.Json;
 
 namespace PFE.ExpenseTracker.MCP.Controllers;
 
+// Local model for /process endpoint
+public class McpProcessRequest
+{
+    public string? Prompt { get; set; }
+    public string? UserId { get; set; }
+    public Dictionary<string, object>? Context { get; set; }
+    public List<string>? History { get; set; }
+    public bool IgnoreHistory { get; set; }
+}
+
+public class McpProcessResponse
+{
+    public bool Success { get; set; }
+    public string? Response { get; set; }
+    public string? Action { get; set; }
+    public object? Data { get; set; }
+    public string? Error { get; set; }
+    public List<string>? History { get; set; }
+}
+
 [ApiController]
 [Route("api/[controller]")]
 public class McpController : ControllerBase
@@ -32,7 +52,7 @@ public class McpController : ControllerBase
     }
 
     [HttpPost("process")]
-    public async Task<IActionResult> ProcessRequest([FromBody] McpRequest request)
+    public async Task<IActionResult> ProcessRequest([FromBody] McpProcessRequest request)
     {
         // Basic validation
         var errors = new List<ValidationError>();
@@ -83,7 +103,7 @@ public class McpController : ControllerBase
 
             if (action == null && aiResponse == null)
             {
-                return BadRequest(new McpResponse
+                return BadRequest(new McpProcessResponse
                 {
                     Success = false,
                     Error = "Could not interpret the request (empty action)",
@@ -96,7 +116,7 @@ public class McpController : ControllerBase
             {
                 history.Add($"AI: {aiResponse}");
                 await _chatHistoryService.SaveChatHistoryAsync(request.UserId, history);
-                return Ok(new McpResponse
+                return Ok(new McpProcessResponse
                 {
                     Success = false,
                     Response = aiResponse,
@@ -121,7 +141,7 @@ public class McpController : ControllerBase
             // Save updated history to database
             await _chatHistoryRepository.SaveOrUpdateAsync(request.UserId, history);
 
-            return Ok(new McpResponse
+            return Ok(new McpProcessResponse
             {
                 Success = result.Success,
                 Response = serverResponse,
@@ -133,7 +153,7 @@ public class McpController : ControllerBase
         catch (Exception ex)
         {
             _logger.LogError(ex, "Error processing MCP request");
-            return StatusCode(500, new McpResponse
+            return StatusCode(500, new McpProcessResponse
             {
                 Success = false,
                 Error = ex.Message

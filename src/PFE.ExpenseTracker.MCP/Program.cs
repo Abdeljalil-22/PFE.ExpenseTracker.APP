@@ -17,6 +17,14 @@ builder.Services.AddScoped<IExpenseTrackerClient, ExpenseTrackerClient>();
 builder.Services.AddApplication();
 builder.Services.AddInfrastructure(builder.Configuration);
 
+// Register stubs for MCP server dependencies
+builder.Services.AddSingleton<PFE.ExpenseTracker.MCP.IExpenseService, PFE.ExpenseTracker.MCP.StubExpenseService>();
+builder.Services.AddSingleton<PFE.ExpenseTracker.MCP.IBudgetService, PFE.ExpenseTracker.MCP.StubBudgetService>();
+builder.Services.AddSingleton<PFE.ExpenseTracker.MCP.IAnalyticsService, PFE.ExpenseTracker.MCP.StubAnalyticsService>();
+builder.Services.AddSingleton<PFE.ExpenseTracker.MCP.ICategoryService, PFE.ExpenseTracker.MCP.StubCategoryService>();
+builder.Services.AddSingleton<PFE.ExpenseTracker.MCP.IMcpSecurityService, PFE.ExpenseTracker.MCP.StubMcpSecurityService>();
+builder.Services.AddSingleton<PFE.ExpenseTracker.MCP.ExpenseTrackerMcpServer>();
+
 // Add CORS
 builder.Services.AddCors(options =>
 {
