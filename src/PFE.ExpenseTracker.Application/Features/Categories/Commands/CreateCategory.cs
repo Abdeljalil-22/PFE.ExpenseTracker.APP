@@ -11,7 +11,7 @@ namespace PFE.ExpenseTracker.Application.Features.Categories.Commands
     {
         public Guid UserId { get; set; }
         public string Name { get; set; }
-        public string Description { get; set; }
+        public string? Description { get; set; }
         public string Icon { get; set; }
         public string Color { get; set; }
     }

@@ -1,0 +1,6 @@
+@PFE.ExpenseTracker.MCP_HostAddress = http://localhost:5022
+
+GET {{PFE.ExpenseTracker.MCP_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
