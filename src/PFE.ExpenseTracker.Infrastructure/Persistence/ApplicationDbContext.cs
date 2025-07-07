@@ -19,6 +19,7 @@ namespace PFE.ExpenseTracker.Infrastructure.Persistence
         public DbSet<GoalContribution> GoalContributions { get; set; }
         public DbSet<Notification> Notifications { get; set; }
         public DbSet<Attachment> Attachments { get; set; }
+        public DbSet<ChatHistory> ChatHistories { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

@@ -6,6 +6,7 @@ using PFE.ExpenseTracker.Infrastructure.Authentication;
 using PFE.ExpenseTracker.Infrastructure.Persistence;
 using PFE.ExpenseTracker.Infrastructure.Repositories;
 using PFE.ExpenseTracker.Infrastructure.Services;
+using StackExchange.Redis;
 
 namespace PFE.ExpenseTracker.Infrastructure
 {
@@ -18,6 +19,13 @@ namespace PFE.ExpenseTracker.Infrastructure
                     configuration.GetConnectionString("DefaultConnection"),
                     b => b.MigrationsAssembly(typeof(ApplicationDbContext).Assembly.FullName)));
 
+            // Add Redis and chat history service
+            var redisConnection = configuration.GetConnectionString("Redis");
+            services.AddSingleton<IConnectionMultiplexer>(sp => 
+                ConnectionMultiplexer.Connect(redisConnection ?? "localhost:6379"));
+            services.AddScoped<IChatHistoryService, ChatHistoryService>();
+
+            // Existing services
             services.AddScoped<IUserRepository, UserRepository>();
             services.AddScoped<IExpenseRepository, ExpenseRepository>();
             services.AddScoped<ICategoryRepository, CategoryRepository>();
@@ -28,6 +36,7 @@ namespace PFE.ExpenseTracker.Infrastructure
             services.AddScoped<INotificationService, NotificationService>();
             // services.AddScoped<IFileStorageService, FileStorageService>();
             services.AddScoped<IReportService, ReportService>();
+            services.AddScoped<IChatHistoryRepository, ChatHistoryRepository>();
             services.AddScoped<ApplicationDbInitializer>();
 
             // Register background services

@@ -7,6 +7,7 @@ public class McpRequest
     public string? UserId { get; set; }
     public Dictionary<string, object> Context { get; set; } = new();
     public List<string>? History { get; set; } = new();
+    public bool IgnoreHistory { get; set; } // Allow client to optionally start a fresh conversation
 }
 
 public class McpResponse

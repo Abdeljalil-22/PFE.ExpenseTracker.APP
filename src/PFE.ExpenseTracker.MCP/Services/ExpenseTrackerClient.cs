@@ -41,13 +41,13 @@ public class ExpenseTrackerClient : IExpenseTrackerClient
                             var createExpense = new CreateExpenseCommand
                             {
                                 UserId = Guid.TryParse(userId, out var uid) ? uid : Guid.Empty,
-                                Description = action.Parameters.TryGetValue("description", out var desc) ? desc?.ToString() : null,
+                                Description = action.Parameters.TryGetValue("description", out var desc) ? desc?.ToString() : "",
                                 Amount = action.Parameters.TryGetValue("amount", out var amt) && decimal.TryParse(amt?.ToString(), out var d) ? d : 0,
                                 Date = action.Parameters.TryGetValue("date", out var dt) && DateTime.TryParse(dt?.ToString(), out var date) ? date : DateTime.UtcNow,
                                 CategoryId = action.Parameters.TryGetValue("categoryId", out var cat) && Guid.TryParse(cat?.ToString(), out var cid) ? cid : Guid.Empty,
-                                Notes = action.Parameters.TryGetValue("notes", out var notes) ? notes?.ToString() : null,
+                                Notes = action.Parameters.TryGetValue("notes", out var notes) ? notes?.ToString() : "",
                                 IsRecurring = action.Parameters.TryGetValue("isRecurring", out var rec) && bool.TryParse(rec?.ToString(), out var b) ? b : false,
-                                RecurringFrequency = action.Parameters.TryGetValue("recurringFrequency", out var freq) ? freq?.ToString() : null,
+                                RecurringFrequency = action.Parameters.TryGetValue("recurringFrequency", out var freq) ? freq?.ToString() : "false",
                                 IsShared = action.Parameters.TryGetValue("isShared", out var shared) && bool.TryParse(shared?.ToString(), out var sh) ? sh : false
                             };
                             var resultCreateExpense = await _mediator.Send(createExpense);
@@ -70,13 +70,13 @@ public class ExpenseTrackerClient : IExpenseTrackerClient
                             {
                                 Id = action.Parameters.TryGetValue("id", out var eid2) && Guid.TryParse(eid2?.ToString(), out var expId) ? expId : Guid.Empty,
                                 UserId = Guid.TryParse(userId, out var uid3) ? uid3 : Guid.Empty,
-                                Description = action.Parameters.TryGetValue("description", out var desc2) ? desc2?.ToString() : null,
+                                Description = action.Parameters.TryGetValue("description", out var desc2) ? desc2?.ToString() : "",
                                 Amount = action.Parameters.TryGetValue("amount", out var amt2) && decimal.TryParse(amt2?.ToString(), out var d2) ? d2 : 0,
                                 Date = action.Parameters.TryGetValue("date", out var dt2) && DateTime.TryParse(dt2?.ToString(), out var date2) ? date2 : DateTime.UtcNow,
                                 CategoryId = action.Parameters.TryGetValue("categoryId", out var cat2) && Guid.TryParse(cat2?.ToString(), out var cid2) ? cid2 : Guid.Empty,
-                                Notes = action.Parameters.TryGetValue("notes", out var notes2) ? notes2?.ToString() : null,
+                                Notes = action.Parameters.TryGetValue("notes", out var notes2) ? notes2?.ToString() : "",
                                 IsRecurring = action.Parameters.TryGetValue("isRecurring", out var rec2) && bool.TryParse(rec2?.ToString(), out var b2) ? b2 : false,
-                                RecurringFrequency = action.Parameters.TryGetValue("recurringFrequency", out var freq2) ? freq2?.ToString() : null,
+                                RecurringFrequency = action.Parameters.TryGetValue("recurringFrequency", out var freq2) ? freq2?.ToString() : "false",
                                 IsShared = action.Parameters.TryGetValue("isShared", out var shared2) && bool.TryParse(shared2?.ToString(), out var sh2) ? sh2 : false
                             };
                             var resultUpdateExpense = await _mediator.Send(updateExpense);
@@ -181,9 +181,9 @@ public class ExpenseTrackerClient : IExpenseTrackerClient
                                 Id = action.Parameters.TryGetValue("id", out var cid2) && Guid.TryParse(cid2?.ToString(), out var catId2) ? catId2 : Guid.Empty,
                                 UserId = Guid.TryParse(userId, out var cuid3) ? cuid3 : Guid.Empty,
                                 Name = action.Parameters.TryGetValue("name", out var cname2) ? cname2?.ToString() : null,
-                                Description = action.Parameters.TryGetValue("description", out var cdesc2) ? cdesc2?.ToString() : null,
-                                Color = action.Parameters.TryGetValue("color", out var ccolor2) ? ccolor2?.ToString() : null,
-                                Icon = action.Parameters.TryGetValue("icon", out var cicon2) ? cicon2?.ToString() : null
+                                Description = action.Parameters.TryGetValue("description", out var cdesc2) ? cdesc2?.ToString() : "",
+                                Color = action.Parameters.TryGetValue("color", out var ccolor2) ? ccolor2?.ToString() : "#FFFFFF", // Default to white if not provided
+                                Icon = action.Parameters.TryGetValue("icon", out var cicon2) ? cicon2?.ToString() : ""
                             };
                             var resultUpdateCategory = await _mediator.Send(updateCategory);
                             return new ActionResult { Success = resultUpdateCategory.Succeeded, Data = new Dictionary<string, object> { ["result"] = resultUpdateCategory.Data }, Error = resultUpdateCategory.Errors != null ? string.Join("; ", resultUpdateCategory.Errors) : null };
@@ -206,7 +206,7 @@ public class ExpenseTrackerClient : IExpenseTrackerClient
                             {
                                 UserId = Guid.TryParse(userId, out var guid) ? guid : Guid.Empty,
                                 Name = action.Parameters.TryGetValue("name", out var gname) ? gname?.ToString() : null,
-                                Description = action.Parameters.TryGetValue("description", out var gdesc) ? gdesc?.ToString() : null,
+                                Description = action.Parameters.TryGetValue("description", out var gdesc) ? gdesc?.ToString() : "",
                                 TargetAmount = action.Parameters.TryGetValue("targetAmount", out var gtamt) && decimal.TryParse(gtamt?.ToString(), out var gtd) ? gtd : 0,
                                 TargetDate = action.Parameters.TryGetValue("targetDate", out var gtdt) && DateTime.TryParse(gtdt?.ToString(), out var gdate) ? gdate : DateTime.UtcNow
                             };
@@ -231,7 +231,7 @@ public class ExpenseTrackerClient : IExpenseTrackerClient
                                 Id = action.Parameters.TryGetValue("id", out var gid2) && Guid.TryParse(gid2?.ToString(), out var goalId2) ? goalId2 : Guid.Empty,
                                 UserId = Guid.TryParse(userId, out var guid3) ? guid3 : Guid.Empty,
                                 Name = action.Parameters.TryGetValue("name", out var gname2) ? gname2?.ToString() : null,
-                                Description = action.Parameters.TryGetValue("description", out var gdesc2) ? gdesc2?.ToString() : null,
+                                Description = action.Parameters.TryGetValue("description", out var gdesc2) ? gdesc2?.ToString() : "",
                                 TargetAmount = action.Parameters.TryGetValue("targetAmount", out var gtamt2) && decimal.TryParse(gtamt2?.ToString(), out var gtd2) ? gtd2 : 0,
                                 TargetDate = action.Parameters.TryGetValue("targetDate", out var gtdt2) && DateTime.TryParse(gtdt2?.ToString(), out var gdate2) ? gdate2 : DateTime.UtcNow
                             };

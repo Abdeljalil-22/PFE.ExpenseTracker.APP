@@ -1425,6 +1425,18 @@
           "lib/net6.0/Newtonsoft.Json.dll": {}
         }
       },
+      "Pipelines.Sockets.Unofficial/2.2.8": {
+        "type": "package",
+        "dependencies": {
+          "System.IO.Pipelines": "5.0.1"
+        },
+        "compile": {
+          "lib/net5.0/Pipelines.Sockets.Unofficial.dll": {}
+        },
+        "runtime": {
+          "lib/net5.0/Pipelines.Sockets.Unofficial.dll": {}
+        }
+      },
       "RBush.Signed/4.0.0": {
         "type": "package",
         "compile": {
@@ -1586,6 +1598,19 @@
         },
         "runtime": {
           "lib/netcoreapp3.1/SixLabors.Fonts.dll": {}
+        }
+      },
+      "StackExchange.Redis/2.7.33": {
+        "type": "package",
+        "dependencies": {
+          "Microsoft.Extensions.Logging.Abstractions": "6.0.0",
+          "Pipelines.Sockets.Unofficial": "2.2.8"
+        },
+        "compile": {
+          "lib/net6.0/StackExchange.Redis.dll": {}
+        },
+        "runtime": {
+          "lib/net6.0/StackExchange.Redis.dll": {}
         }
       },
       "System.AppContext/4.1.0": {
@@ -4751,6 +4776,23 @@
         "packageIcon.png"
       ]
     },
+    "Pipelines.Sockets.Unofficial/2.2.8": {
+      "sha512": "zG2FApP5zxSx6OcdJQLbZDk2AVlN2BNQD6MorwIfV6gVj0RRxWPEp2LXAxqDGZqeNV1Zp0BNPcNaey/GXmTdvQ==",
+      "type": "package",
+      "path": "pipelines.sockets.unofficial/2.2.8",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "lib/net461/Pipelines.Sockets.Unofficial.dll",
+        "lib/net472/Pipelines.Sockets.Unofficial.dll",
+        "lib/net5.0/Pipelines.Sockets.Unofficial.dll",
+        "lib/netcoreapp3.1/Pipelines.Sockets.Unofficial.dll",
+        "lib/netstandard2.0/Pipelines.Sockets.Unofficial.dll",
+        "lib/netstandard2.1/Pipelines.Sockets.Unofficial.dll",
+        "pipelines.sockets.unofficial.2.2.8.nupkg.sha512",
+        "pipelines.sockets.unofficial.nuspec"
+      ]
+    },
     "RBush.Signed/4.0.0": {
       "sha512": "aP5KQxL5RnFNGW1f0euYVBfCatkLw5iEzMRJcXKq8LWWP4Cp3+qoSq1tDDL2vvJ2rM0ychmVMa2VaEKLS6uX4w==",
       "type": "package",
@@ -4975,6 +5017,22 @@
         "sixlabors.fonts.1.0.0.nupkg.sha512",
         "sixlabors.fonts.128.png",
         "sixlabors.fonts.nuspec"
+      ]
+    },
+    "StackExchange.Redis/2.7.33": {
+      "sha512": "2kCX5fvhEE824a4Ab5Imyi8DRuGuTxyklXV01kegkRpsWJcPmO6+GAQ+HegKxvXAxlXZ8yaRspvWJ8t3mMClfQ==",
+      "type": "package",
+      "path": "stackexchange.redis/2.7.33",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "lib/net461/StackExchange.Redis.dll",
+        "lib/net472/StackExchange.Redis.dll",
+        "lib/net6.0/StackExchange.Redis.dll",
+        "lib/netcoreapp3.1/StackExchange.Redis.dll",
+        "lib/netstandard2.0/StackExchange.Redis.dll",
+        "stackexchange.redis.2.7.33.nupkg.sha512",
+        "stackexchange.redis.nuspec"
       ]
     },
     "System.AppContext/4.1.0": {
@@ -7409,6 +7467,7 @@
       "Microsoft.EntityFrameworkCore.SqlServer >= 9.0.5",
       "Microsoft.Extensions.Hosting >= 9.0.5",
       "PFE.ExpenseTracker.Application >= 1.0.0",
+      "StackExchange.Redis >= 2.7.33",
       "itext7 >= 9.2.0"
     ]
   },
@@ -7485,6 +7544,10 @@
           "Microsoft.Extensions.Hosting": {
             "target": "Package",
             "version": "[9.0.5, )"
+          },
+          "StackExchange.Redis": {
+            "target": "Package",
+            "version": "[2.7.33, )"
           },
           "itext7": {
             "target": "Package",
