@@ -38,15 +38,39 @@ public class McpController : ControllerBase
         try
         {
             // Get structured action from Gemini
-            var actionJson = await _geminiService.GetActionFromPromptAsync(request.Prompt);
-            var action = JsonSerializer.Deserialize<McpAction>(actionJson);
+
+            var actionJsonRaw = await _geminiService.GetActionFromPromptAsync(request.Prompt);
+            // Remove markdown code block markers and trim whitespace
+            _logger.LogInformation("Received Gemini response: {ActionJsonRaw}", actionJsonRaw);
+            var actionJson = actionJsonRaw
+                .Replace("```json", "", StringComparison.OrdinalIgnoreCase)
+                .Replace("```", "", StringComparison.OrdinalIgnoreCase)
+                .Trim();
+            _logger.LogInformation("Parsed Gemini response: {ActionJson}", actionJson);
+            McpAction? action = null;
+            try
+            {
+                action = JsonSerializer.Deserialize<McpAction>(actionJson);
+                _logger.LogInformation("Deserialized action: {@Action}", action);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Failed to parse Gemini response: {Raw}", actionJsonRaw);
+                return BadRequest(new McpResponse
+                {
+                    Success = false,
+                    Error = "Could not interpret the request (invalid JSON from Gemini)",
+                    Data = new Dictionary<string, object> { ["raw"] = actionJsonRaw }
+                });
+            }
 
             if (action == null)
             {
                 return BadRequest(new McpResponse
                 {
                     Success = false,
-                    Error = "Could not interpret the request"
+                    Error = "Could not interpret the request (empty action)",
+                    Data = new Dictionary<string, object> { ["raw"] = actionJsonRaw }
                 });
             }
 

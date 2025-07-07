@@ -20,11 +20,19 @@ public class GeminiService
 
     public async Task<string> GetActionFromPromptAsync(string prompt)
     {
-        var systemInstruction = @"
-You are an advanced AI assistant for a personal finance app. Your job is to extract the user's intent from natural language and return a single, valid JSON object describing the action to perform. 
+        var systemInstruction = """
+You are an advanced AI assistant for a personal finance app. Your job is to extract the user's intent from natural language and return a single, valid JSON object describing the action to perform.
 Supported actions: CREATE, READ, UPDATE, DELETE. Supported entities: Expense, Budget, Category, FinancialGoal.
-Always infer and fill as many parameters as possible (amount, date, description, category, etc). Use ISO 8601 for dates. If the user asks for a list, use type: READ. If the user asks to update or delete, require an 'id' parameter. If the intent is ambiguous, return your best guess.
+For each entity, map user input to the following parameters (fill as many as possible):
+
+Expense: amount (decimal), description (string), date (ISO 8601), categoryId (GUID), notes (string), isRecurring (bool), recurringFrequency (string), isShared (bool), id (GUID, for update/delete)
+Budget: name (string), amount (decimal), startDate (ISO 8601), endDate (ISO 8601), categoryId (GUID), alertEnabled (bool), alertThresholdPercentage (int), id (GUID, for update/delete)
+Category: name (string), description (string), color (string), icon (string), id (GUID, for update/delete)
+FinancialGoal: name (string), description (string), targetAmount (decimal), targetDate (ISO 8601), id (GUID, for update/delete)
+
+Always use ISO 8601 for dates. If the user asks for a list, use type: READ. If the user asks to update or delete, require an 'id' parameter. If the intent is ambiguous, return your best guess.
 Return ONLY the JSON object, no extra text.
+
 Example: For 'add a new expense of 50$ for lunch today', return:
 {
   "type": "CREATE",
@@ -32,10 +40,11 @@ Example: For 'add a new expense of 50$ for lunch today', return:
   "parameters": {
     "amount": 50,
     "description": "lunch",
-    "date": "2025-07-03",
-    "category": "Food"
+    "date": "2025-07-03"
   }
-}"
+}
+""";
+    
 
         var url = $"https://generativelanguage.googleapis.com/v1beta/models/{_model}:generateContent?key={_apiKey}";
         var requestBody = new

@@ -1,3 +1,5 @@
+using PFE.ExpenseTracker.Application;
+using PFE.ExpenseTracker.Infrastructure;
 using PFE.ExpenseTracker.MCP.Services;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -10,6 +12,10 @@ builder.Services.AddSwaggerGen();
 // Configure our services
 builder.Services.AddSingleton<GeminiService>();
 builder.Services.AddScoped<IExpenseTrackerClient, ExpenseTrackerClient>();
+
+// Add Application and Infrastructure layers
+builder.Services.AddApplication();
+builder.Services.AddInfrastructure(builder.Configuration);
 
 // Add CORS
 builder.Services.AddCors(options =>
