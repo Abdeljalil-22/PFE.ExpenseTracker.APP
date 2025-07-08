@@ -1,13 +1,9 @@
 using System.Text.Json;
 using StackExchange.Redis;
+using PFE.ExpenseTracker.Application.Common.Interfaces;
 
 namespace PFE.ExpenseTracker.Infrastructure.Services;
 
-public interface IChatHistoryService
-{
-    Task<List<string>> GetChatHistoryAsync(string userId);
-    Task SaveChatHistoryAsync(string userId, List<string> history);
-}
 
 public class ChatHistoryService : IChatHistoryService
 {

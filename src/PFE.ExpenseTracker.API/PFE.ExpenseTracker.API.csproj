@@ -21,6 +21,8 @@
   <ItemGroup>
    <ProjectReference Include="..\PFE.ExpenseTracker.Application\PFE.ExpenseTracker.Application.csproj" />
    <ProjectReference Include="..\PFE.ExpenseTracker.Infrastructure\PFE.ExpenseTracker.Infrastructure.csproj" />
+   <ProjectReference Include="..\PFE.ExpenseTracker.AIAgent\PFE.ExpenseTracker.AIAgent.csproj" />
+
  </ItemGroup>
 
 

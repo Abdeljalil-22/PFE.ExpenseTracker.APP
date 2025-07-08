@@ -1,0 +1,16 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <RootNamespace>PFE.ExpenseTraker.AIAgent</RootNamespace>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+
+  <ItemGroup>
+    <ProjectReference Include="..\PFE.ExpenseTracker.Application\PFE.ExpenseTracker.Application.csproj" />
+    <ProjectReference Include="..\PFE.ExpenseTracker.Infrastructure\PFE.ExpenseTracker.Infrastructure.csproj" />
+  </ItemGroup>
+
+</Project>

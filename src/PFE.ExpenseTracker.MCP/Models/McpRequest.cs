@@ -1,4 +1,3 @@
-using System.Text.Json.Serialization;
 namespace PFE.ExpenseTracker.MCP.Models;
 
 public class McpRequest
@@ -10,24 +9,6 @@ public class McpRequest
     public bool IgnoreHistory { get; set; } // Allow client to optionally start a fresh conversation
 }
 
-public class McpResponse
-{
-    public string? Response { get; set; }
-    public string? Action { get; set; }
-    public Dictionary<string, object> Data { get; set; } = new();
-    public bool Success { get; set; }
-    public string? Error { get; set; }
-    public List<string>? History { get; set; } = new();
-}
 
-public class McpAction
-{
-    [JsonPropertyName("type")]
-    public string? Type { get; set; } // CREATE, READ, UPDATE, DELETE
 
-    [JsonPropertyName("entity")]
-    public string? Entity { get; set; } // Expense, Budget, Category, etc.
 
-    [JsonPropertyName("parameters")]
-    public Dictionary<string, object> Parameters { get; set; } = new();
-}

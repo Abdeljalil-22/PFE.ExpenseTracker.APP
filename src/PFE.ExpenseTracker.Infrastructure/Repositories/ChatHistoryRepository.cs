@@ -5,14 +5,11 @@ using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using PFE.ExpenseTracker.Domain.Entities;
 using PFE.ExpenseTracker.Infrastructure.Persistence;
+using PFE.ExpenseTracker.Application.Common.Interfaces;
 
 namespace PFE.ExpenseTracker.Infrastructure.Repositories
 {
-    public interface IChatHistoryRepository
-    {
-        Task<ChatHistory?> GetByUserIdAsync(string userId);
-        Task SaveOrUpdateAsync(string userId, List<string> history);
-    }
+   
 
     public class ChatHistoryRepository : IChatHistoryRepository
     {
