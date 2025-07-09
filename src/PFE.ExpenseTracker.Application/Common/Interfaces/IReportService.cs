@@ -1,7 +1,4 @@
-using System;
-using System.Collections.Generic;
-using System.Threading.Tasks;
-using PFE.ExpenseTracker.Application.Common.Models;
+
 
 namespace PFE.ExpenseTracker.Application.Common.Interfaces
 {
@@ -13,13 +10,5 @@ namespace PFE.ExpenseTracker.Application.Common.Interfaces
         Task<byte[]> GenerateAnnualSummaryReportAsync(Guid userId, int year, string format);
     }
 
-    public class ReportOptions
-    {
-        public DateTime? StartDate { get; set; }
-        public DateTime? EndDate { get; set; }
-        public string Format { get; set; } = "PDF";
-        public bool IncludeCharts { get; set; } = true;
-        public string[] Categories { get; set; }
-        public string Currency { get; set; }
-    }
+    
 }

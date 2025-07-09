@@ -15,13 +15,12 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PFE.ExpenseTracker.API", "s
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PFE.ExpenseTracker.MCP", "src\PFE.ExpenseTracker.MCP\PFE.ExpenseTracker.MCP.csproj", "{4BD69780-CC24-4FED-9566-0DF52D88695A}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PFE.ExpenseTracker.AIAgent", "src\PFE.ExpenseTracker.AIAgent\PFE.ExpenseTracker.AIAgent.csproj", "{41803123-07D8-4CF8-AF5D-AFB38170FD30}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Release|Any CPU = Release|Any CPU
-	EndGlobalSection
-	GlobalSection(SolutionProperties) = preSolution
-		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{BB5A0BCC-6A7A-46D1-B8F3-E5293354D93E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
@@ -44,6 +43,13 @@ Global
 		{4BD69780-CC24-4FED-9566-0DF52D88695A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4BD69780-CC24-4FED-9566-0DF52D88695A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4BD69780-CC24-4FED-9566-0DF52D88695A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{41803123-07D8-4CF8-AF5D-AFB38170FD30}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{41803123-07D8-4CF8-AF5D-AFB38170FD30}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{41803123-07D8-4CF8-AF5D-AFB38170FD30}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{41803123-07D8-4CF8-AF5D-AFB38170FD30}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{BB5A0BCC-6A7A-46D1-B8F3-E5293354D93E} = {9B5F9182-AA33-4411-BF91-08EADDA61DC0}
@@ -51,5 +57,6 @@ Global
 		{75513FA5-5900-4080-AE19-EDD15B9F1529} = {9B5F9182-AA33-4411-BF91-08EADDA61DC0}
 		{0CA42ADE-76EF-4829-B8F8-7005D282DAB9} = {9B5F9182-AA33-4411-BF91-08EADDA61DC0}
 		{4BD69780-CC24-4FED-9566-0DF52D88695A} = {9B5F9182-AA33-4411-BF91-08EADDA61DC0}
+		{41803123-07D8-4CF8-AF5D-AFB38170FD30} = {9B5F9182-AA33-4411-BF91-08EADDA61DC0}
 	EndGlobalSection
 EndGlobal
