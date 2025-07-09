@@ -1,0 +1,32 @@
+
+FROM mcr.microsoft.com/dotnet/aspnet:8.0-alpine AS base
+USER $APP_UID
+WORKDIR /app
+EXPOSE 8080
+EXPOSE 8081
+
+
+# This stage is used to build the service project
+FROM mcr.microsoft.com/dotnet/sdk:8.0-alpine AS build
+ARG BUILD_CONFIGURATION=Release
+WORKDIR /src
+COPY ["src/PFE.ExpenseTracker.API/PFE.ExpenseTracker.API.csproj", "src/PFE.ExpenseTracker.API/"]
+COPY ["src/PFE.ExpenseTracker.AIAgent/PFE.ExpenseTracker.AIAgent.csproj", "src/PFE.ExpenseTracker.AIAgent/"]
+COPY ["src/PFE.ExpenseTracker.Application/PFE.ExpenseTracker.Application.csproj", "src/PFE.ExpenseTracker.Application/"]
+COPY ["src/PFE.ExpenseTracker.Domain/PFE.ExpenseTracker.Domain.csproj", "src/PFE.ExpenseTracker.Domain/"]
+COPY ["src/PFE.ExpenseTracker.Infrastructure/PFE.ExpenseTracker.Infrastructure.csproj", "src/PFE.ExpenseTracker.Infrastructure/"]
+RUN dotnet restore "./src/PFE.ExpenseTracker.API/PFE.ExpenseTracker.API.csproj"
+COPY . .
+WORKDIR "/src/src/PFE.ExpenseTracker.API"
+RUN dotnet build "./PFE.ExpenseTracker.API.csproj" -c $BUILD_CONFIGURATION -o /app/build
+
+# This stage is used to publish the service project to be copied to the final stage
+FROM build AS publish
+ARG BUILD_CONFIGURATION=Release
+RUN dotnet publish "./PFE.ExpenseTracker.API.csproj" -c $BUILD_CONFIGURATION -o /app/publish /p:UseAppHost=false
+
+# This stage is used in production or when running from VS in regular mode (Default when not using the Debug configuration)
+FROM base AS final
+WORKDIR /app
+COPY --from=publish /app/publish .
+ENTRYPOINT ["dotnet", "PFE.ExpenseTracker.API.dll"]
