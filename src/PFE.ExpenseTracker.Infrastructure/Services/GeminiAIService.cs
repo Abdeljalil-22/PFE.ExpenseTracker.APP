@@ -1,4 +1,5 @@
 using Microsoft.Extensions.Configuration;
+using PFE.ExpenseTracker.Application.Common.Interfaces;
 using System.Net.Http;
 using System.Text;
 using System.Text.Json;
@@ -6,7 +7,9 @@ using System.Threading.Tasks;
 
 namespace PFE.ExpenseTracker.Infrastructure.Services;
 
-public class GeminiAIService
+
+
+public class GeminiAIService : IGeminiAIService
 {
     private readonly HttpClient _httpClient;
     private readonly string _apiKey;
@@ -22,7 +25,7 @@ public class GeminiAIService
     public async Task<string> GetActionFromPromptAsync(string prompt)
     {
 
-var systemInstruction = """
+        var systemInstruction = """
 You are an advanced AI assistant for a personal finance app. Your job is to extract the user's intent from natural language and return a single, valid JSON object describing the action to perform.
 Supported actions: CREATE, READ, UPDATE, DELETE. Supported entities: Expense, Budget, Category, FinancialGoal.
 For each entity, map user input to the following parameters (fill as many as possible):
@@ -52,9 +55,9 @@ Example: For 'add a new expense of 50$ for lunch today', return:
 Example: For 'update my budget', return:
 Which budget do you want to update? Please provide the budget id.
 """;
-    
 
-      
+
+
         var url = $"https://generativelanguage.googleapis.com/v1beta/models/{_model}:generateContent?key={_apiKey}";
         var requestBody = new
         {

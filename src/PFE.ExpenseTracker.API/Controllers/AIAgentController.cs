@@ -4,7 +4,9 @@ namespace PFE.ExpenseTracker.API.Controllers;
 using PFE.ExpenseTracker.AIAgent.Models;
 using PFE.ExpenseTracker.AIAgent.Services; 
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Authorization;
 
+[Authorize]
 [ApiController]
 [Route("api/[controller]")]
 public class AIAgentController : ControllerBase
@@ -15,9 +17,9 @@ public class AIAgentController : ControllerBase
 
     public AIAgentController(
 
-        ILogger<AIAgentController> logger)
+        ILogger<AIAgentController> logger , AIAgent aiAgent) 
     {
-
+        _aiAgent = aiAgent;
         _logger = logger;
     }
 
@@ -36,7 +38,7 @@ public class AIAgentController : ControllerBase
 
         try
         {
-           await aIAgent= _aiAgent.AProcessAsync(request);
+            var aIAgent= await _aiAgent.ProcessAsync(request);
 
             if (aIAgent == null)
             {
@@ -53,6 +55,8 @@ public class AIAgentController : ControllerBase
                 {
                     Success = false,
                     Response = aIAgent.Response,
+                    Error = aIAgent.Error,
+                    Data = aIAgent.Data,
                     History = aIAgent.History
                 });
             }
@@ -62,6 +66,8 @@ public class AIAgentController : ControllerBase
                 {
                     Success = false,
                     Error = aIAgent.Error,
+                    Response = aIAgent.Response,
+                    Data = aIAgent.Data,
                     History = aIAgent.History
                 });
             }

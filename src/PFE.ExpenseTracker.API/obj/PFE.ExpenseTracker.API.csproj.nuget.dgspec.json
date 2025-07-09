@@ -28,9 +28,6 @@
             "projectReferences": {
               "/workspaces/PFE.ExpenseTracker.APP/src/PFE.ExpenseTracker.Application/PFE.ExpenseTracker.Application.csproj": {
                 "projectPath": "/workspaces/PFE.ExpenseTracker.APP/src/PFE.ExpenseTracker.Application/PFE.ExpenseTracker.Application.csproj"
-              },
-              "/workspaces/PFE.ExpenseTracker.APP/src/PFE.ExpenseTracker.Infrastructure/PFE.ExpenseTracker.Infrastructure.csproj": {
-                "projectPath": "/workspaces/PFE.ExpenseTracker.APP/src/PFE.ExpenseTracker.Infrastructure/PFE.ExpenseTracker.Infrastructure.csproj"
               }
             }
           }
@@ -49,6 +46,12 @@
       "frameworks": {
         "net8.0": {
           "targetAlias": "net8.0",
+          "dependencies": {
+            "Microsoft.Extensions.Logging.Abstractions": {
+              "target": "Package",
+              "version": "[9.0.7, )"
+            }
+          },
           "imports": [
             "net461",
             "net462",
@@ -336,6 +339,9 @@
           "net8.0": {
             "targetAlias": "net8.0",
             "projectReferences": {
+              "/workspaces/PFE.ExpenseTracker.APP/src/PFE.ExpenseTracker.AIAgent/PFE.ExpenseTracker.AIAgent.csproj": {
+                "projectPath": "/workspaces/PFE.ExpenseTracker.APP/src/PFE.ExpenseTracker.AIAgent/PFE.ExpenseTracker.AIAgent.csproj"
+              },
               "/workspaces/PFE.ExpenseTracker.APP/src/PFE.ExpenseTracker.Application/PFE.ExpenseTracker.Application.csproj": {
                 "projectPath": "/workspaces/PFE.ExpenseTracker.APP/src/PFE.ExpenseTracker.Application/PFE.ExpenseTracker.Application.csproj"
               }
@@ -357,6 +363,10 @@
         "net8.0": {
           "targetAlias": "net8.0",
           "dependencies": {
+            "BouncyCastle": {
+              "target": "Package",
+              "version": "[1.8.9, )"
+            },
             "ClosedXML": {
               "target": "Package",
               "version": "[0.105.0, )"
@@ -390,6 +400,10 @@
               "version": "[2.7.33, )"
             },
             "itext7": {
+              "target": "Package",
+              "version": "[9.2.0, )"
+            },
+            "itext7.bouncy-castle-adapter": {
               "target": "Package",
               "version": "[9.2.0, )"
             }

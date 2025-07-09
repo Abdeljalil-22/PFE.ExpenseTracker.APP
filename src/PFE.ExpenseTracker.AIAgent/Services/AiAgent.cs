@@ -1,7 +1,7 @@
 
 namespace PFE.ExpenseTracker.AIAgent.Services;
 
-using PFE.ExpenseTracker.Infrastructure.Services;
+// using PFE.ExpenseTracker.Infrastructure.Services;
 using PFE.ExpenseTracker.Application.Common.Interfaces;
 using PFE.ExpenseTracker.AIAgent.Models;
 using System.Text.Json;
@@ -11,12 +11,12 @@ public class AIAgent
 {
     private readonly IExpenseTrackerClient _expenseTrackerClient;
     private readonly ILogger<AIAgent> _logger;
-    private readonly  GeminiAIService _geminiService;
+    private readonly  IGeminiAIService _geminiService;
     private readonly IChatHistoryService _chatHistoryService;
     private readonly IChatHistoryRepository _chatHistoryRepository;
 
     public AIAgent(IExpenseTrackerClient expenseTrackerClient, ILogger<AIAgent> logger,
-        GeminiAIService geminiService, IChatHistoryService chatHistoryService,
+        IGeminiAIService geminiService, IChatHistoryService chatHistoryService,
         IChatHistoryRepository chatHistoryRepository)
     {
         _geminiService = geminiService;

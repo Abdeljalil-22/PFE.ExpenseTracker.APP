@@ -7,10 +7,12 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="BouncyCastle" Version="1.8.9" />
     <PackageReference Include="ClosedXML" Version="0.105.0" />
     <PackageReference Include="Google.Cloud.AIPlatform.V1" Version="3.36.0" />
     <PackageReference Include="Google.Protobuf" Version="3.31.1" />
     <PackageReference Include="itext7" Version="9.2.0" />
+    <PackageReference Include="itext7.bouncy-castle-adapter" Version="9.2.0" />
     <PackageReference Include="Microsoft.AspNetCore.Http" Version="2.3.0" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="9.0.5" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="9.0.5" />
@@ -20,6 +22,7 @@
 
    <ItemGroup>
   <ProjectReference Include="..\PFE.ExpenseTracker.Application\PFE.ExpenseTracker.Application.csproj" />
+   <ProjectReference Include="..\PFE.ExpenseTracker.AIAgent\PFE.ExpenseTracker.AIAgent.csproj" />
 </ItemGroup>
 
 </Project>
