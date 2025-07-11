@@ -92,3 +92,8 @@ Refer to the Swagger UI or `doc.json` for detailed request/response schemas and 
    docker-compose up --build
    ```
 
+   test user
+   admin@expensetracker.com
+   
+   admin
+
