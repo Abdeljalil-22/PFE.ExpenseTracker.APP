@@ -7,14 +7,40 @@ using PFE.ExpenseTracker.Application.Common.Interfaces;
 using PFE.ExpenseTracker.Domain.Entities;
 using PFE.ExpenseTracker.Infrastructure.Persistence;
 
-namespace PFE.ExpenseTracker.Infrastructure.Repositories
-{
+namespace PFE.ExpenseTracker.Infrastructure.Repositories;
+
+
+
     public class ExpenseRepository : Repository<Expense>, IExpenseRepository
     {
         public ExpenseRepository(ApplicationDbContext context) : base(context)
         {
         }
 
+
+public async Task<IEnumerable<Expense>> GetUserExpensesFilteredAsync(
+            Guid userId,
+            Guid? categoryId = null,
+            DateTime? startDate = null,
+            DateTime? endDate = null,
+            bool? isRecurring = null)
+    {
+        var query = _dbSet
+            .Include(e => e.Category)
+            .Include(e => e.Attachments)
+            .Where(e => e.UserId == userId);
+
+        if (categoryId.HasValue)
+            query = query.Where(e => e.CategoryId == categoryId.Value);
+        if (startDate.HasValue)
+            query = query.Where(e => e.Date >= startDate.Value);
+        if (endDate.HasValue)
+            query = query.Where(e => e.Date <= endDate.Value);
+        if (isRecurring.HasValue)
+            query = query.Where(e => e.IsRecurring == isRecurring.Value);
+
+        return await query.OrderByDescending(e => e.Date).ToListAsync();
+    }
         public async Task<IEnumerable<Expense>> GetUserExpensesAsync(Guid userId)
         {
             return await _dbSet
@@ -57,4 +83,4 @@ namespace PFE.ExpenseTracker.Infrastructure.Repositories
                 .FirstOrDefaultAsync(e => e.Id == id);
         }
     }
-}
+

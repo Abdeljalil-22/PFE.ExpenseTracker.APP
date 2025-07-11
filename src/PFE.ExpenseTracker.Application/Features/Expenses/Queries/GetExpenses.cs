@@ -27,7 +27,13 @@ namespace PFE.ExpenseTracker.Application.Features.Expenses.Queries
 
         public async Task<Result<List<ExpenseDto>>> Handle(GetExpensesQuery request, CancellationToken cancellationToken)
         {
-            var expenses = await _expenseRepository.GetUserExpensesAsync(request.UserId);
+            var expenses = await _expenseRepository.GetUserExpensesFilteredAsync(
+                request.UserId,
+                request.CategoryId,
+                request.StartDate,
+                request.EndDate,
+                request.IsRecurring
+            );
             var expenseDtos = _mapper.Map<List<ExpenseDto>>(expenses);
             return Result<List<ExpenseDto>>.Success(expenseDtos);
         }

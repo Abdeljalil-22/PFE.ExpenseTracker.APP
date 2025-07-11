@@ -19,6 +19,14 @@ namespace PFE.ExpenseTracker.Application.Common.Interfaces
         Task<IEnumerable<Expense>> GetExpensesByCategoryAsync(Guid userId, Guid categoryId);
         Task<IEnumerable<Expense>> GetRecurringExpensesAsync(Guid userId);
         Task<bool> HasExpensesInCategoryAsync(Guid categoryId);
+
+        Task<IEnumerable<Expense>> GetUserExpensesFilteredAsync(
+            Guid userId,
+            Guid? categoryId = null,
+            DateTime? startDate = null,
+            DateTime? endDate = null,
+            bool? isRecurring = null
+        );
     }
 
     public interface ICategoryRepository : IRepository<Category>
