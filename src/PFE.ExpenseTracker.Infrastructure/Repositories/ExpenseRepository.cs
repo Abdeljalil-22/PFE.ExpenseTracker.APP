@@ -1,7 +1,4 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+
 using Microsoft.EntityFrameworkCore;
 using PFE.ExpenseTracker.Application.Common.Interfaces;
 using PFE.ExpenseTracker.Domain.Entities;
@@ -11,19 +8,19 @@ namespace PFE.ExpenseTracker.Infrastructure.Repositories;
 
 
 
-    public class ExpenseRepository : Repository<Expense>, IExpenseRepository
+public class ExpenseRepository : Repository<Expense>, IExpenseRepository
+{
+    public ExpenseRepository(ApplicationDbContext context) : base(context)
     {
-        public ExpenseRepository(ApplicationDbContext context) : base(context)
-        {
-        }
+    }
 
 
-public async Task<IEnumerable<Expense>> GetUserExpensesFilteredAsync(
-            Guid userId,
-            Guid? categoryId = null,
-            DateTime? startDate = null,
-            DateTime? endDate = null,
-            bool? isRecurring = null)
+    public async Task<IEnumerable<Expense>> GetUserExpensesFilteredAsync(
+                Guid userId,
+                Guid? categoryId = null,
+                DateTime? startDate = null,
+                DateTime? endDate = null,
+                bool? isRecurring = null)
     {
         var query = _dbSet
             .Include(e => e.Category)
@@ -41,46 +38,54 @@ public async Task<IEnumerable<Expense>> GetUserExpensesFilteredAsync(
 
         return await query.OrderByDescending(e => e.Date).ToListAsync();
     }
-        public async Task<IEnumerable<Expense>> GetUserExpensesAsync(Guid userId)
+    public async Task<IEnumerable<Expense>> GetUserExpensesAsync(Guid userId)
+    {
+        return await _dbSet
+            .Include(e => e.Category)
+            .Include(e => e.Attachments)
+            .Where(e => e.UserId == userId)
+            .OrderByDescending(e => e.Date)
+            .ToListAsync();
+    }
+
+    public async Task<IEnumerable<Expense>> GetExpensesByCategoryAsync(Guid userId, Guid categoryId)
+    {
+        return await _dbSet
+            .Include(e => e.Category)
+            .Include(e => e.Attachments)
+            .Where(e => e.UserId == userId && e.CategoryId == categoryId)
+            .OrderByDescending(e => e.Date)
+            .ToListAsync();
+    }
+
+    public async Task<IEnumerable<Expense>> GetRecurringExpensesAsync(Guid userId)
+    {
+        return await _dbSet
+            .Include(e => e.Category)
+            .Where(e => e.UserId == userId && e.IsRecurring)
+            .OrderBy(e => e.NextRecurringDate)
+            .ToListAsync();
+    }
+
+    public async Task<bool> HasExpensesInCategoryAsync(Guid categoryId)
+    {
+        return await _dbSet.AnyAsync(e => e.CategoryId == categoryId);
+    }
+
+    public override async Task<Expense?> GetByIdAsync(Guid id)
+    {
+        return await _dbSet
+            .Include(e => e.Category)
+            .Include(e => e.Attachments)
+            .FirstOrDefaultAsync(e => e.Id == id);
+    }
+
+        public async Task<IEnumerable<Expense>> GetRecurringExpensesAsync()
         {
             return await _dbSet
                 .Include(e => e.Category)
-                .Include(e => e.Attachments)
-                .Where(e => e.UserId == userId)
-                .OrderByDescending(e => e.Date)
+                .Where(e => e.IsRecurring)
                 .ToListAsync();
-        }
-
-        public async Task<IEnumerable<Expense>> GetExpensesByCategoryAsync(Guid userId, Guid categoryId)
-        {
-            return await _dbSet
-                .Include(e => e.Category)
-                .Include(e => e.Attachments)
-                .Where(e => e.UserId == userId && e.CategoryId == categoryId)
-                .OrderByDescending(e => e.Date)
-                .ToListAsync();
-        }
-
-        public async Task<IEnumerable<Expense>> GetRecurringExpensesAsync(Guid userId)
-        {
-            return await _dbSet
-                .Include(e => e.Category)
-                .Where(e => e.UserId == userId && e.IsRecurring)
-                .OrderBy(e => e.NextRecurringDate)
-                .ToListAsync();
-        }
-
-        public async Task<bool> HasExpensesInCategoryAsync(Guid categoryId)
-        {
-            return await _dbSet.AnyAsync(e => e.CategoryId == categoryId);
-        }
-
-        public override async Task<Expense?> GetByIdAsync(Guid id)
-        {
-            return await _dbSet
-                .Include(e => e.Category)
-                .Include(e => e.Attachments)
-                .FirstOrDefaultAsync(e => e.Id == id);
         }
     }
 
