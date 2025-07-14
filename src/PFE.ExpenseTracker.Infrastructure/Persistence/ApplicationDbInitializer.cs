@@ -71,7 +71,7 @@ namespace PFE.ExpenseTracker.Infrastructure.Persistence
                     LastName = "User",
                     IsActive = true,
                     CreatedAt = DateTime.UtcNow,
-                    PasswordHash = "admin" // TODO: Replace with a real hash in production
+                    PasswordHash = "$2a$11$zdJ4tWuvNuReN1ksiBow1u.4t3ie9gqfe6k73/mvh2UcVF9lSIaae" // admin
                 };
                 await _context.Users.AddAsync(defaultUser);
                 await _context.SaveChangesAsync();
