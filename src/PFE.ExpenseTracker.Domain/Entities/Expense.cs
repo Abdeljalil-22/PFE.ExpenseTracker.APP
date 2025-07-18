@@ -1,8 +1,7 @@
-using System;
-using System.Collections.Generic;
 
-namespace PFE.ExpenseTracker.Domain.Entities
-{
+
+namespace PFE.ExpenseTracker.Domain.Entities;
+
     public class Expense
     {
         public Guid Id { get; set; }
@@ -19,6 +18,5 @@ namespace PFE.ExpenseTracker.Domain.Entities
         public User User { get; set; }
         public Category Category { get; set; }
         public ICollection<Attachment> Attachments { get; set; }
-        // public ICollection<SharedExpenseUser> SharedWith { get; set; }
     }
-}
+

@@ -27,13 +27,14 @@ namespace PFE.ExpenseTracker.Application.Common.Interfaces
             DateTime? endDate = null,
             bool? isRecurring = null
         );
+        Task<IEnumerable<Expense>> GetRecurringExpensesAsync();
     }
 
     public interface ICategoryRepository : IRepository<Category>
     {
         Task<IEnumerable<Category>> GetUserCategoriesAsync(Guid userId);
         Task<IEnumerable<Category>> GetDefaultCategoriesAsync();
-        Task<Category?> GetByNameAsync(Guid userId,string name);
+        Task<Category?> GetByNameAsync(Guid userId, string name);
     }
 
     public interface IBudgetRepository : IRepository<Budget>
@@ -49,7 +50,7 @@ namespace PFE.ExpenseTracker.Application.Common.Interfaces
         Task<IEnumerable<FinancialGoal>> GetUserGoalsByStatusAsync(Guid userId, string status);
 
         Task UpdateGoalProgressAsync(Guid goalId, decimal amount);
-        
+
     }
 
     public interface INotificationRepository : IRepository<Notification>

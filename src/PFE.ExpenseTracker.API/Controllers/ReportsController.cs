@@ -85,6 +85,33 @@ namespace PFE.ExpenseTracker.API.Controllers
             return File(reportBytes, contentType, fileName);
         }
 
+        ///<summary>
+        /// Generate a financial goals report
+        /// </summary>
+        /// <param name="format">Report format (PDF or Excel)</param>
+        /// <returns>The generated report file</returns>
+        /// 
+        [HttpGet("financial-goals")]
+        [ProducesResponseType(typeof(FileResult), StatusCodes.Status200OK)]
+        public async Task<IActionResult> GenerateFinancialGoalsReport(
+            [FromQuery] string format = "PDF")
+        {
+            var userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+            var reportBytes = await _reportService.GenerateFinancialGoalsReportAsync(
+                Guid.Parse(userId),
+                format);
+            var contentType = format.Equals("PDF", StringComparison.OrdinalIgnoreCase)
+                ? "application/pdf"
+                : "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet";
+            var fileName = format.Equals("PDF", StringComparison.OrdinalIgnoreCase)
+                ? "FinancialGoalsReport.pdf"
+                : "FinancialGoalsReport.xlsx";
+            return File(reportBytes, contentType, fileName);
+
+
+        }
+
+
         /// <summary>
         /// Generate an annual summary report
         /// </summary>
@@ -94,8 +121,8 @@ namespace PFE.ExpenseTracker.API.Controllers
         [HttpGet("annual-summary")]
         [ProducesResponseType(typeof(FileResult), StatusCodes.Status200OK)]
         public async Task<IActionResult> GenerateAnnualSummaryReport(
-            [FromQuery] int year,
-            [FromQuery] string format = "PDF")
+        [FromQuery] int year,
+        [FromQuery] string format = "PDF")
         {
             var userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
             var reportBytes = await _reportService.GenerateAnnualSummaryReportAsync(
