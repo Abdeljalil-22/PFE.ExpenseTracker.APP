@@ -49,28 +49,28 @@ public class AIAgentController : ControllerBase
                     Data = new Dictionary<string, object> { ["raw"] = request.Prompt }
                 });
             }
-            if (aIAgent.Response != null)
-            {
-                return BadRequest(new McpProcessResponse
-                {
-                    Success = false,
-                    Response = aIAgent.Response,
-                    Error = aIAgent.Error,
-                    Data = aIAgent.Data,
-                    History = aIAgent.History
-                });
-            }
-            if(aIAgent.Success == false)
-            {
-                return BadRequest(new McpProcessResponse
-                {
-                    Success = false,
-                    Error = aIAgent.Error,
-                    Response = aIAgent.Response,
-                    Data = aIAgent.Data,
-                    History = aIAgent.History
-                });
-            }
+            // if (aIAgent.Response != null)
+            // {
+            //     return BadRequest(new McpProcessResponse
+            //     {
+            //         Success = false,
+            //         Response = aIAgent.Response,
+            //         Error = aIAgent.Error,
+            //         Data = aIAgent.Data,
+            //         History = aIAgent.History
+            //     });
+            // }
+            // if(aIAgent.Success == false)
+            // {
+            //     return BadRequest(new McpProcessResponse
+            //     {
+            //         Success = false,
+            //         Error = aIAgent.Error,
+            //         Response = aIAgent.Response,
+            //         Data = aIAgent.Data,
+            //         History = aIAgent.History
+            //     });
+            // }
 
             return Ok(aIAgent);
         }
