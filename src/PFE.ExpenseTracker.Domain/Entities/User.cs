@@ -11,6 +11,7 @@ namespace PFE.ExpenseTracker.Domain.Entities
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public string PasswordHash { get; set; }
+        public bool EmailVerified { get; set; }
         public DateTime CreatedAt { get; set; }
         public DateTime? LastLogin { get; set; }
         public bool IsActive { get; set; }

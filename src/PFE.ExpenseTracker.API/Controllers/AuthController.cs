@@ -40,6 +40,17 @@ namespace PFE.ExpenseTracker.API.Controllers
             return Ok(result.Data);
         }
 
+        [HttpPost("google")]
+        public async Task<IActionResult> AuthenticateWithGoogle([FromBody] GoogleAuthCommand command)
+        {
+            var result = await _mediator.Send(command);
+            
+            if (!result.Succeeded)
+                return BadRequest(result.Errors);
+
+            return Ok(result.Data);
+        }
+
         [Authorize]
         [HttpGet("me")]
         public async Task<IActionResult> GetCurrentUser()

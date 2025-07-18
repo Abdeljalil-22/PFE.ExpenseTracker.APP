@@ -28,6 +28,10 @@ namespace PFE.ExpenseTracker.Infrastructure
             // Existing services
             services.AddScoped<IUserRepository, UserRepository>();
             services.AddScoped<IExpenseRepository, ExpenseRepository>();
+            services.AddScoped<IEmailService, SmtpEmailService>();
+            services.AddScoped<IGoogleAuthService, GoogleAuthService>();
+            services.AddScoped<IJwtService, JwtService>();
+            services.AddScoped<IIdentityService, IdentityService>();
             services.AddScoped<ICategoryRepository, CategoryRepository>();
             services.AddScoped<IBudgetRepository, BudgetRepository>();
             services.AddScoped<IFinancialGoalRepository, FinancialGoalRepository>();

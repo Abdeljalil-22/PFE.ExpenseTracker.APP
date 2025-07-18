@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "MZubIVoNGes=",
+  "dgSpecHash": "Ms2rJOb1aGI=",
   "success": true,
   "projectFilePath": "/workspaces/PFE.ExpenseTracker.APP/src/PFE.ExpenseTracker.API/PFE.ExpenseTracker.API.csproj",
   "expectedPackageFiles": [
@@ -19,9 +19,9 @@
     "/home/codespace/.nuget/packages/google.api.commonprotos/2.17.0/google.api.commonprotos.2.17.0.nupkg.sha512",
     "/home/codespace/.nuget/packages/google.api.gax/4.11.0/google.api.gax.4.11.0.nupkg.sha512",
     "/home/codespace/.nuget/packages/google.api.gax.grpc/4.11.0/google.api.gax.grpc.4.11.0.nupkg.sha512",
-    "/home/codespace/.nuget/packages/google.apis/1.69.0/google.apis.1.69.0.nupkg.sha512",
-    "/home/codespace/.nuget/packages/google.apis.auth/1.69.0/google.apis.auth.1.69.0.nupkg.sha512",
-    "/home/codespace/.nuget/packages/google.apis.core/1.69.0/google.apis.core.1.69.0.nupkg.sha512",
+    "/home/codespace/.nuget/packages/google.apis/1.70.0/google.apis.1.70.0.nupkg.sha512",
+    "/home/codespace/.nuget/packages/google.apis.auth/1.70.0/google.apis.auth.1.70.0.nupkg.sha512",
+    "/home/codespace/.nuget/packages/google.apis.core/1.70.0/google.apis.core.1.70.0.nupkg.sha512",
     "/home/codespace/.nuget/packages/google.cloud.aiplatform.v1/3.36.0/google.cloud.aiplatform.v1.3.36.0.nupkg.sha512",
     "/home/codespace/.nuget/packages/google.cloud.iam.v1/3.4.0/google.cloud.iam.v1.3.4.0.nupkg.sha512",
     "/home/codespace/.nuget/packages/google.cloud.location/2.3.0/google.cloud.location.2.3.0.nupkg.sha512",

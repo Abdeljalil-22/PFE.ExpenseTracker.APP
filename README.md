@@ -85,7 +85,11 @@ Refer to the Swagger UI or `doc.json` for detailed request/response schemas and 
 5. Create and apply migrations (if not already present):
    ```bash
    dotnet tool run dotnet-ef migrations add InitialCreate --project ../PFE.ExpenseTracker.Infrastructure --startup-project .
-   dotnet tool run dotnet-ef database update --project ../PFE.ExpenseTracker.Infrastructure --startup-project .
+   dotnet tool run dotnet-ef database update --project ../PFE.ExpenseTracker.
+   dotnet tool run dotnet-ef database update --project ../PFE.ExpenseTracker.API/PFE.ExpenseTracker.API.csproj
+
+   dotnet ef database update --project ../PFE.ExpenseTracker.API/PFE.ExpenseTracker.API.csproj
+   Infrastructure --startup-project .
    ```
 6. Run the application:
    ```bash
