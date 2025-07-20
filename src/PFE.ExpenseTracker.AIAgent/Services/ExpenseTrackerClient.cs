@@ -10,6 +10,13 @@ using PFE.ExpenseTracker.Application.Features.FinancialGoals.Commands;
 using PFE.ExpenseTracker.Application.Features.FinancialGoals.Queries;
 using PFE.ExpenseTracker.AIAgent.Models;
 using Microsoft.Extensions.Logging;
+using PFE.ExpenseTracker.Application.Features.Budgets.Commands.CreateBudget;
+using PFE.ExpenseTracker.Application.Features.Budgets.Queries.GetBudgetById;
+using PFE.ExpenseTracker.Application.Features.Budgets.Queries.GetBudgets;
+using PFE.ExpenseTracker.Application.Features.Budgets.Commands.UpdateBudget;
+using PFE.ExpenseTracker.Application.Features.Budgets.Commands.DeleteBudget;
+using PFE.ExpenseTracker.Application.Features.FinancialGoals.Queries.GetFinancialGoalById;
+using PFE.ExpenseTracker.Application.Features.FinancialGoals.Queries.GetFinancialGoals;
 
 namespace PFE.ExpenseTracker.AIAgent.Services;
 

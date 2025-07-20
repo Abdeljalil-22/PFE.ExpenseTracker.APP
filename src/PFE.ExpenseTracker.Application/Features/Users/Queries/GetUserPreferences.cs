@@ -1,6 +1,7 @@
 using AutoMapper;
 using MediatR;
 using PFE.ExpenseTracker.Application.Common.Interfaces;
+using PFE.ExpenseTracker.Application.Common.Interfaces.Repository;
 using PFE.ExpenseTracker.Application.Common.Models;
 
 namespace PFE.ExpenseTracker.Application.Features.Users.Queries;
@@ -13,18 +14,19 @@ namespace PFE.ExpenseTracker.Application.Features.Users.Queries;
 
     public class GetUserPreferencesQueryHandler : IRequestHandler<GetUserPreferencesQuery, Result<UserPreferencesDto>>
     {
-        private readonly IUserRepository _userRepository;
+         private readonly IReadUserRepository _readUserRepository;
         private readonly IMapper _mapper;
 
-        public GetUserPreferencesQueryHandler(IUserRepository userRepository, IMapper mapper)
+        public GetUserPreferencesQueryHandler(
+            IReadUserRepository userRepository,
+            IMapper mapper)
         {
-            _userRepository = userRepository;
+            _readUserRepository = userRepository;
             _mapper = mapper;
         }
-
         public async Task<Result<UserPreferencesDto>> Handle(GetUserPreferencesQuery request, CancellationToken cancellationToken)
         {
-            var user = await _userRepository.GetByIdAsync(request.UserId);
+            var user = await _readUserRepository.GetByIdAsync(request.UserId);
             if (user == null)
                 return Result<UserPreferencesDto>.Failure("Preferences not found");
 

@@ -4,6 +4,7 @@ using AutoMapper;
 using PFE.ExpenseTracker.Application.Common.Interfaces;
 using PFE.ExpenseTracker.Application.Common.Models;
 using PFE.ExpenseTracker.Domain.Entities;
+using PFE.ExpenseTracker.Application.Common.Interfaces.Repository;
 
 namespace PFE.ExpenseTracker.Application.Features.FinancialGoals.Commands
 {
@@ -33,18 +34,20 @@ namespace PFE.ExpenseTracker.Application.Features.FinancialGoals.Commands
 
     public class AddGoalContributionCommandHandler : IRequestHandler<AddGoalContributionCommand, Result<FinancialGoalDto>>
     {
-        private readonly IFinancialGoalRepository _goalRepository;
+        private readonly IReadFinancialGoalRepository _readFinancialGoalRepository;
+        private readonly IWriteFinancialGoalRepository _writeFinancialGoalRepository;
         private readonly IMapper _mapper;
 
-        public AddGoalContributionCommandHandler(IFinancialGoalRepository goalRepository, IMapper mapper)
+        public AddGoalContributionCommandHandler(IReadFinancialGoalRepository readFinancialGoalRepository ,IWriteFinancialGoalRepository writeFinancialGoalRepository, IMapper mapper)
         {
-            _goalRepository = goalRepository;
+            _readFinancialGoalRepository = readFinancialGoalRepository;
+            _writeFinancialGoalRepository = writeFinancialGoalRepository;
             _mapper = mapper;
         }
 
         public async Task<Result<FinancialGoalDto>> Handle(AddGoalContributionCommand request, CancellationToken cancellationToken)
         {
-            var goal = await _goalRepository.GetByIdAsync(request.FinancialGoalId);
+            var goal = await _readFinancialGoalRepository.GetByIdAsync(request.FinancialGoalId);
             if (goal == null)
                 return Result<FinancialGoalDto>.Failure("Financial goal not found");
 
@@ -68,8 +71,8 @@ namespace PFE.ExpenseTracker.Application.Features.FinancialGoals.Commands
             if (goal.CurrentAmount >= goal.TargetAmount)
                 goal.Status = "Completed";
 
-            await _goalRepository.UpdateAsync(goal);
-            await _goalRepository.SaveChangesAsync();
+            await _writeFinancialGoalRepository.UpdateAsync(goal);
+            await _writeFinancialGoalRepository.SaveChangesAsync();
 
             var goalDto = _mapper.Map<FinancialGoalDto>(goal);
             return Result<FinancialGoalDto>.Success(goalDto);

@@ -3,6 +3,7 @@ using PFE.ExpenseTracker.Application.Common.Interfaces;
 using PFE.ExpenseTracker.Application.Common.Models;
 using PFE.ExpenseTracker.Application.Common.Exceptions;
 using PFE.ExpenseTracker.Domain.Entities;
+using PFE.ExpenseTracker.Application.Common.Interfaces.Repository;
 
 namespace PFE.ExpenseTracker.Application.Features.Categories.Commands
 {
@@ -14,20 +15,24 @@ namespace PFE.ExpenseTracker.Application.Features.Categories.Commands
 
     public class DeleteCategoryCommandHandler : IRequestHandler<DeleteCategoryCommand, Result>
     {
-        private readonly ICategoryRepository _categoryRepository;
-        private readonly IExpenseRepository _expenseRepository;
+    
+         private readonly IReadCategoryRepository _readCategoryRepository;
+        private readonly IWriteCategoryRepository _writeCategoryRepository;
+        private readonly IReadExpenseRepository _readExpenseRepository;
 
         public DeleteCategoryCommandHandler(
-            ICategoryRepository categoryRepository,
-            IExpenseRepository expenseRepository)
+            IReadCategoryRepository readCategoryRepository,
+            IWriteCategoryRepository writeCategoryRepository,
+            IReadExpenseRepository readExpenseRepository )
         {
-            _categoryRepository = categoryRepository;
-            _expenseRepository = expenseRepository;
+            _readCategoryRepository  = readCategoryRepository;
+            _writeCategoryRepository = writeCategoryRepository;
+            _readExpenseRepository = readExpenseRepository;
         }
 
         public async Task<Result> Handle(DeleteCategoryCommand request, CancellationToken cancellationToken)
         {
-            var category = await _categoryRepository.GetByIdAsync(request.Id);
+            var category = await _readCategoryRepository.GetByIdAsync(request.Id);
             
             if (category == null)
                 throw new NotFoundException(nameof(Category), request.Id);
@@ -38,12 +43,12 @@ namespace PFE.ExpenseTracker.Application.Features.Categories.Commands
             if (category.IsDefault)
                 return Result.Failure("Cannot delete default categories");
 
-            var hasExpenses = await _expenseRepository.HasExpensesInCategoryAsync(category.Id);
+            var hasExpenses = await _readExpenseRepository.HasExpensesInCategoryAsync(category.Id);
             if (hasExpenses)
                 return Result.Failure("Cannot delete category with existing expenses");
 
-            await _categoryRepository.DeleteAsync(category);
-            await _categoryRepository.SaveChangesAsync();
+            await _writeCategoryRepository.DeleteAsync(category);
+            await _writeCategoryRepository.SaveChangesAsync();
 
             return Result.Success();
         }

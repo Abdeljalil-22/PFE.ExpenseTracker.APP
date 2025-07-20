@@ -10,22 +10,23 @@ using iText.Layout.Properties;
 using PFE.ExpenseTracker.Application.Common.Interfaces;
 using Microsoft.Extensions.Logging;
 using ClosedXML.Excel;
+using PFE.ExpenseTracker.Application.Common.Interfaces.Repository;
 
 namespace PFE.ExpenseTracker.Infrastructure.Services
 {
     public class ReportService : IReportService
     {
-        private readonly IExpenseRepository _expenseRepository;
-        private readonly IBudgetRepository _budgetRepository;
-        private readonly IFinancialGoalRepository _goalRepository;
-        private readonly ICategoryRepository _categoryRepository;
+        private readonly IReadExpenseRepository _expenseRepository;
+        private readonly IReadBudgetRepository _budgetRepository;
+        private readonly IReadFinancialGoalRepository _goalRepository;
+        private readonly IReadCategoryRepository _categoryRepository;
         private readonly ILogger<ReportService> _logger;
 
         public ReportService(
-            IExpenseRepository expenseRepository,
-            IBudgetRepository budgetRepository,
-            IFinancialGoalRepository goalRepository,
-            ICategoryRepository categoryRepository,
+            IReadExpenseRepository expenseRepository,
+            IReadBudgetRepository budgetRepository,
+            IReadFinancialGoalRepository goalRepository,
+            IReadCategoryRepository categoryRepository,
             ILogger<ReportService> logger)
         {
             _expenseRepository = expenseRepository;

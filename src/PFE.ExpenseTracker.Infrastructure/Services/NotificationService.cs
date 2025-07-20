@@ -1,23 +1,20 @@
 using System;
 using System.Threading.Tasks;
 using PFE.ExpenseTracker.Application.Common.Interfaces;
+using PFE.ExpenseTracker.Application.Common.Interfaces.Repository;
 using PFE.ExpenseTracker.Domain.Entities;
 
 namespace PFE.ExpenseTracker.Infrastructure.Services
 {
     public class NotificationService : INotificationService
     {
-        private readonly INotificationRepository _notificationRepository;
-        private readonly IBudgetRepository _budgetRepository;
+        private readonly IWriteNotificationRepository _writenotificationRepository;
+        
 
-        public NotificationService(
-            INotificationRepository notificationRepository,
-            IBudgetRepository budgetRepository)
+        public NotificationService(IWriteNotificationRepository writenotificationRepository)
         {
-            _notificationRepository = notificationRepository;
-            _budgetRepository = budgetRepository;
+            _writenotificationRepository = writenotificationRepository;
         }
-
         public async Task CreateBudgetAlertAsync(Budget budget)
         {
             var percentageUsed = (budget.SpentAmount / budget.Amount) * 100;
@@ -33,8 +30,8 @@ namespace PFE.ExpenseTracker.Infrastructure.Services
                     CreatedAt = DateTime.UtcNow
                 };
 
-                await _notificationRepository.AddAsync(notification);
-                await _notificationRepository.SaveChangesAsync();
+                await _writenotificationRepository.AddAsync(notification);
+                await _writenotificationRepository.SaveChangesAsync();
             }
         }
 
@@ -52,8 +49,8 @@ namespace PFE.ExpenseTracker.Infrastructure.Services
                     CreatedAt = DateTime.UtcNow
                 };
 
-                await _notificationRepository.AddAsync(notification);
-                await _notificationRepository.SaveChangesAsync();
+                await _writenotificationRepository.AddAsync(notification);
+                await _writenotificationRepository.SaveChangesAsync();
             }
         }
 
@@ -71,8 +68,8 @@ namespace PFE.ExpenseTracker.Infrastructure.Services
                     CreatedAt = DateTime.UtcNow
                 };
 
-                await _notificationRepository.AddAsync(notification);
-                await _notificationRepository.SaveChangesAsync();
+                await _writenotificationRepository.AddAsync(notification);
+                await _writenotificationRepository.SaveChangesAsync();
             }
         }
     }

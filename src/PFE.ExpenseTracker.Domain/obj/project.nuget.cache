@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "wsKJnO+rI/k=",
+  "dgSpecHash": "CHqqpJPPzhc=",
   "success": true,
-  "projectFilePath": "/workspaces/PFE.ExpenseTracker.APP/src/PFE.ExpenseTracker.Domain/PFE.ExpenseTracker.Domain.csproj",
+  "projectFilePath": "/home/adbel/coure-Master/pfe/PFE.ExpenseTracker.APP/src/PFE.ExpenseTracker.Domain/PFE.ExpenseTracker.Domain.csproj",
   "expectedPackageFiles": [],
   "logs": []
 }

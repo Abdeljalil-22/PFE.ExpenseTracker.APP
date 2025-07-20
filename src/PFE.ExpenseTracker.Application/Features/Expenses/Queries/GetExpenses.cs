@@ -1,6 +1,7 @@
 using AutoMapper;
 using MediatR;
 using PFE.ExpenseTracker.Application.Common.Interfaces;
+using PFE.ExpenseTracker.Application.Common.Interfaces.Repository;
 using PFE.ExpenseTracker.Application.Common.Models;
 
 namespace PFE.ExpenseTracker.Application.Features.Expenses.Queries
@@ -16,18 +17,19 @@ namespace PFE.ExpenseTracker.Application.Features.Expenses.Queries
 
     public class GetExpensesQueryHandler : IRequestHandler<GetExpensesQuery, Result<List<ExpenseDto>>>
     {
-        private readonly IExpenseRepository _expenseRepository;
+        
+             private readonly IReadExpenseRepository _readExpenseRepository;
         private readonly IMapper _mapper;
 
-        public GetExpensesQueryHandler(IExpenseRepository expenseRepository, IMapper mapper)
+        public GetExpensesQueryHandler(IReadExpenseRepository readExpenseRepository, IMapper mapper)
         {
-            _expenseRepository = expenseRepository;
+            _readExpenseRepository = readExpenseRepository;
             _mapper = mapper;
         }
 
         public async Task<Result<List<ExpenseDto>>> Handle(GetExpensesQuery request, CancellationToken cancellationToken)
         {
-            var expenses = await _expenseRepository.GetUserExpensesFilteredAsync(
+            var expenses = await _readExpenseRepository.GetUserExpensesFilteredAsync(
                 request.UserId,
                 request.CategoryId,
                 request.StartDate,

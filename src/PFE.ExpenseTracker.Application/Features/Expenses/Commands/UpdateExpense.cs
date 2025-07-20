@@ -1,6 +1,7 @@
 using FluentValidation;
 using MediatR;
 using PFE.ExpenseTracker.Application.Common.Interfaces;
+using PFE.ExpenseTracker.Application.Common.Interfaces.Repository;
 using PFE.ExpenseTracker.Application.Common.Models;
 
 namespace PFE.ExpenseTracker.Application.Features.Expenses.Commands
@@ -40,41 +41,48 @@ namespace PFE.ExpenseTracker.Application.Features.Expenses.Commands
 
     public class UpdateExpenseCommandHandler : IRequestHandler<UpdateExpenseCommand, Result<ExpenseDto>>
     {
-        private readonly IExpenseRepository _expenseRepository;
-        private readonly ICategoryRepository _categoryRepository;
-        private readonly IBudgetRepository _budgetRepository;
+    private readonly IReadExpenseRepository _readExpenseRepository;
+        private readonly IWriteExpenseRepository _writeExpenseRepository;
+        private readonly IReadBudgetRepository _readBudgetRepository;
+        private readonly IWriteBudgetRepository _writeBudgetRepository;
+          private readonly IReadCategoryRepository _readCategoryRepository;
+
 
         public UpdateExpenseCommandHandler(
-            IExpenseRepository expenseRepository,
-            ICategoryRepository categoryRepository,
-            IBudgetRepository budgetRepository)
+            IReadExpenseRepository readExpenseRepository,
+            IWriteExpenseRepository writeExpenseRepository,
+            IReadBudgetRepository readBudgetRepository,
+            IWriteBudgetRepository writeBudgetRepository,
+            IReadCategoryRepository readCategoryRepository)
         {
-            _expenseRepository = expenseRepository;
-            _categoryRepository = categoryRepository;
-            _budgetRepository = budgetRepository;
+            _readExpenseRepository = readExpenseRepository;
+            _writeExpenseRepository = writeExpenseRepository;
+            _readBudgetRepository = readBudgetRepository;
+            _writeBudgetRepository = writeBudgetRepository;
+            _readCategoryRepository = readCategoryRepository;
         }
 
         public async Task<Result<ExpenseDto>> Handle(UpdateExpenseCommand request, CancellationToken cancellationToken)
         {
-            var expense = await _expenseRepository.GetByIdAsync(request.Id);
+            var expense = await _readExpenseRepository.GetByIdAsync(request.Id);
             if (expense == null)
                 return Result<ExpenseDto>.Failure("Expense not found");
             if (expense.UserId != request.UserId)
                 return Result<ExpenseDto>.Failure("Unauthorized");
 
-            var category = await _categoryRepository.GetByIdAsync(request.CategoryId);
+            var category = await _readCategoryRepository.GetByIdAsync(request.CategoryId);
             if (category == null)
                 return Result<ExpenseDto>.Failure("Category not found");
 
             // Optionally update budget spent amount if amount or category changed
             if (expense.Amount != request.Amount || expense.CategoryId != request.CategoryId)
             {
-                var oldBudget = await _budgetRepository.GetBudgetByCategoryAsync(request.UserId, expense.CategoryId);
+                var oldBudget = await _readBudgetRepository.GetBudgetByCategoryAsync(request.UserId, expense.CategoryId);
                 if (oldBudget != null)
-                    await _budgetRepository.UpdateBudgetSpentAmountAsync(oldBudget.Id, -expense.Amount);
-                var newBudget = await _budgetRepository.GetBudgetByCategoryAsync(request.UserId, request.CategoryId);
+                    await _writeBudgetRepository.UpdateBudgetSpentAmountAsync(oldBudget.Id, -expense.Amount);
+                var newBudget = await _readBudgetRepository.GetBudgetByCategoryAsync(request.UserId, request.CategoryId);
                 if (newBudget != null)
-                    await _budgetRepository.UpdateBudgetSpentAmountAsync(newBudget.Id, request.Amount);
+                    await _writeBudgetRepository.UpdateBudgetSpentAmountAsync(newBudget.Id, request.Amount);
             }
 
             expense.Description = request.Description;
@@ -86,8 +94,8 @@ namespace PFE.ExpenseTracker.Application.Features.Expenses.Commands
             expense.IsShared = request.IsShared;
             expense.Notes = request.Notes;
 
-            await _expenseRepository.UpdateAsync(expense);
-            await _expenseRepository.SaveChangesAsync();
+            await _writeExpenseRepository.UpdateAsync(expense);
+            await _writeExpenseRepository.SaveChangesAsync();
 
             var dto = new ExpenseDto
             {

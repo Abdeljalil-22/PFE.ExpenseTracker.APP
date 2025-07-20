@@ -5,6 +5,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using PFE.ExpenseTracker.Application.Common.Interfaces;
+using PFE.ExpenseTracker.Application.Common.Interfaces.Repository;
 using PFE.ExpenseTracker.Domain.Entities;
 
 namespace PFE.ExpenseTracker.Infrastructure.Services
@@ -46,11 +47,13 @@ namespace PFE.ExpenseTracker.Infrastructure.Services
         private async Task ProcessRecurringExpenses()
         {
             using var scope = _serviceProvider.CreateScope();
-            var expenseRepository = scope.ServiceProvider.GetRequiredService<IExpenseRepository>();
+            var readExpenseRepository  = scope.ServiceProvider.GetRequiredService<IReadExpenseRepository>();
+            var writeExpenseRepository  = scope.ServiceProvider.GetRequiredService<IWriteExpenseRepository>();
+
             var notificationService = scope.ServiceProvider.GetRequiredService<INotificationService>();
 
             var today = DateTime.UtcNow.Date;
-            var recurringExpenses = await expenseRepository.GetRecurringExpensesAsync();
+            var recurringExpenses = await readExpenseRepository.GetRecurringExpensesAsync();
 
             foreach (var expense in recurringExpenses)
             {
@@ -79,9 +82,9 @@ namespace PFE.ExpenseTracker.Infrastructure.Services
                         _ => null
                     };
 
-                    await expenseRepository.AddAsync(newExpense);
-                    await expenseRepository.UpdateAsync(expense);
-                    await expenseRepository.SaveChangesAsync();
+                    await writeExpenseRepository.AddAsync(newExpense);
+                    await writeExpenseRepository.UpdateAsync(expense);
+                    await writeExpenseRepository.SaveChangesAsync();
 
                     // Create notification for the next occurrence
                     if (expense.NextRecurringDate.HasValue)

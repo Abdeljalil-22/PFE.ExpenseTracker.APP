@@ -1,6 +1,7 @@
 using MediatR;
 using PFE.ExpenseTracker.Application.Common.Exceptions;
 using PFE.ExpenseTracker.Application.Common.Interfaces;
+using PFE.ExpenseTracker.Application.Common.Interfaces.Repository;
 using PFE.ExpenseTracker.Application.Common.Models;
 using PFE.ExpenseTracker.Domain.Entities;
 
@@ -14,20 +15,30 @@ namespace PFE.ExpenseTracker.Application.Features.Expenses.Commands
 
     public class DeleteExpenseCommandHandler : IRequestHandler<DeleteExpenseCommand, Result>
     {
-        private readonly IExpenseRepository _expenseRepository;
-        private readonly IBudgetRepository _budgetRepository;
+
+private readonly IReadExpenseRepository _readExpenseRepository;
+        private readonly IWriteExpenseRepository _writeExpenseRepository;
+        private readonly IReadBudgetRepository _readBudgetRepository;
+        private readonly IWriteBudgetRepository _writeBudgetRepository;
+
+
 
         public DeleteExpenseCommandHandler(
-            IExpenseRepository expenseRepository,
-            IBudgetRepository budgetRepository)
+            IReadExpenseRepository expenseRepository,
+            IWriteExpenseRepository writeExpenseRepository,
+            IReadBudgetRepository budgetRepository,
+            IWriteBudgetRepository writeBudgetRepository)
         {
-            _expenseRepository = expenseRepository;
-            _budgetRepository = budgetRepository;
+        
+            _readExpenseRepository = expenseRepository;
+            _writeExpenseRepository = writeExpenseRepository;
+            _readBudgetRepository = budgetRepository;
+            _writeBudgetRepository = writeBudgetRepository;
         }
 
         public async Task<Result> Handle(DeleteExpenseCommand request, CancellationToken cancellationToken)
         {
-            var expense = await _expenseRepository.GetByIdAsync(request.Id);
+            var expense = await _readExpenseRepository.GetByIdAsync(request.Id);
             
             if (expense == null)
                 throw new NotFoundException(nameof(Expense), request.Id);
@@ -36,14 +47,14 @@ namespace PFE.ExpenseTracker.Application.Features.Expenses.Commands
                 throw new UnauthorizedAccessException();
 
             // Update budget
-            var budget = await _budgetRepository.GetBudgetByCategoryAsync(request.UserId, expense.CategoryId);
+            var budget = await _readBudgetRepository.GetBudgetByCategoryAsync(request.UserId, expense.CategoryId);
             if (budget != null)
             {
-                await _budgetRepository.UpdateBudgetSpentAmountAsync(budget.Id, -expense.Amount);
+                await _writeBudgetRepository.UpdateBudgetSpentAmountAsync(budget.Id, -expense.Amount);
             }
 
-            await _expenseRepository.DeleteAsync(expense);
-            await _expenseRepository.SaveChangesAsync();
+            await _writeExpenseRepository.DeleteAsync(expense);
+            await _writeExpenseRepository.SaveChangesAsync();
 
             return Result.Success();
         }

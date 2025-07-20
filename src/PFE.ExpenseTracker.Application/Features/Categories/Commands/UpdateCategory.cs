@@ -4,6 +4,7 @@ using AutoMapper;
 using MediatR;
 using PFE.ExpenseTracker.Application.Common.Interfaces;
 using PFE.ExpenseTracker.Application.Common.Models;
+using PFE.ExpenseTracker.Application.Common.Interfaces.Repository;
 
 namespace PFE.ExpenseTracker.Application.Features.Categories.Commands
 {
@@ -42,18 +43,20 @@ namespace PFE.ExpenseTracker.Application.Features.Categories.Commands
 
     public class UpdateCategoryCommandHandler : IRequestHandler<UpdateCategoryCommand, Result<CategoryDto>>
     {
-        private readonly ICategoryRepository _categoryRepository;
+         private readonly IReadCategoryRepository _readCategoryRepository;
+        private readonly IWriteCategoryRepository _writeCategoryRepository;
         private readonly IMapper _mapper;
 
-        public UpdateCategoryCommandHandler(ICategoryRepository categoryRepository, IMapper mapper)
+        public UpdateCategoryCommandHandler(IReadCategoryRepository readCategoryRepository, IWriteCategoryRepository writeCategoryRepository, IMapper mapper)
         {
-            _categoryRepository = categoryRepository;
             _mapper = mapper;
+            _readCategoryRepository = readCategoryRepository;
+            _writeCategoryRepository = writeCategoryRepository;
         }
 
         public async Task<Result<CategoryDto>> Handle(UpdateCategoryCommand request, CancellationToken cancellationToken)
         {
-            var category = await _categoryRepository.GetByIdAsync(request.Id);
+            var category = await _readCategoryRepository.GetByIdAsync(request.Id);
             if (category == null)
                 return Result<CategoryDto>.Failure("Category not found");
 
@@ -63,7 +66,7 @@ namespace PFE.ExpenseTracker.Application.Features.Categories.Commands
             if (category.IsDefault)
                 return Result<CategoryDto>.Failure("Cannot modify default categories");
 
-            var existingCategory = await _categoryRepository.GetByNameAsync(request.UserId, request.Name);
+            var existingCategory = await _readCategoryRepository.GetByNameAsync(request.UserId, request.Name);
             if (existingCategory != null && existingCategory.Id != request.Id)
                 return Result<CategoryDto>.Failure("A category with this name already exists");
 
@@ -72,8 +75,8 @@ namespace PFE.ExpenseTracker.Application.Features.Categories.Commands
             category.Icon = request.Icon;
             category.Color = request.Color;
 
-            await _categoryRepository.UpdateAsync(category);
-            await _categoryRepository.SaveChangesAsync();
+            await _writeCategoryRepository.UpdateAsync(category);
+            await _writeCategoryRepository.SaveChangesAsync();
 
             var categoryDto = _mapper.Map<CategoryDto>(category);
             return Result<CategoryDto>.Success(categoryDto);

@@ -6,6 +6,7 @@ using PFE.ExpenseTracker.Application.Common.Interfaces;
 using PFE.ExpenseTracker.AIAgent.Models;
 using System.Text.Json;
 using Microsoft.Extensions.Logging;
+using PFE.ExpenseTracker.Application.Common.Interfaces.Repository;
 
 public class AIAgent
 {
@@ -13,17 +14,23 @@ public class AIAgent
     private readonly ILogger<AIAgent> _logger;
     private readonly  IGeminiAIService _geminiService;
     private readonly IChatHistoryService _chatHistoryService;
-    private readonly IChatHistoryRepository _chatHistoryRepository;
+    private readonly IReadChatHistoryRepository _readChatHistoryRepository;
+    private readonly IWriteChatHistoryRepository _writeChatHistoryRepository;
 
-    public AIAgent(IExpenseTrackerClient expenseTrackerClient, ILogger<AIAgent> logger,
-        IGeminiAIService geminiService, IChatHistoryService chatHistoryService,
-        IChatHistoryRepository chatHistoryRepository)
+    public AIAgent(
+        IExpenseTrackerClient expenseTrackerClient,
+        ILogger<AIAgent> logger,
+        IGeminiAIService geminiService,
+        IChatHistoryService chatHistoryService,
+        IReadChatHistoryRepository readChatHistoryRepository,
+        IWriteChatHistoryRepository writeChatHistoryRepository)
     {
-        _geminiService = geminiService;
-        _chatHistoryService = chatHistoryService;
-        _chatHistoryRepository = chatHistoryRepository;
         _expenseTrackerClient = expenseTrackerClient;
         _logger = logger;
+        _geminiService = geminiService;
+        _chatHistoryService = chatHistoryService;
+        _readChatHistoryRepository = readChatHistoryRepository;
+        _writeChatHistoryRepository = writeChatHistoryRepository;
     }
    
 
@@ -103,7 +110,7 @@ public class AIAgent
             // Save updated history to Redis
             await _chatHistoryService.SaveChatHistoryAsync(request.UserId, history);
             // Save updated history to database
-            await _chatHistoryRepository.SaveOrUpdateAsync(request.UserId, history);
+            await _writeChatHistoryRepository.SaveOrUpdateAsync(request.UserId, history);
 
             return new McpProcessResponse
             {

@@ -5,6 +5,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using PFE.ExpenseTracker.Application.Common.Interfaces;
+using PFE.ExpenseTracker.Application.Common.Interfaces.Repository;
 
 namespace PFE.ExpenseTracker.Infrastructure.Services
 {
@@ -42,7 +43,7 @@ namespace PFE.ExpenseTracker.Infrastructure.Services
         private async Task CheckBudgetThresholds()
         {
             using var scope = _serviceProvider.CreateScope();
-            var budgetRepository = scope.ServiceProvider.GetRequiredService<IBudgetRepository>();
+            var budgetRepository = scope.ServiceProvider.GetRequiredService<IReadBudgetRepository>();
             var notificationService = scope.ServiceProvider.GetRequiredService<INotificationService>();
 
             var budgets = await budgetRepository.GetAllAsync();

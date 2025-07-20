@@ -8,10 +8,14 @@
           "Microsoft.Extensions.Options": "8.0.0"
         },
         "compile": {
-          "lib/net8.0/AutoMapper.dll": {}
+          "lib/net8.0/AutoMapper.dll": {
+            "related": ".xml"
+          }
         },
         "runtime": {
-          "lib/net8.0/AutoMapper.dll": {}
+          "lib/net8.0/AutoMapper.dll": {
+            "related": ".xml"
+          }
         }
       },
       "Azure.Core/1.38.0": {
@@ -143,10 +147,14 @@
       "FluentValidation/12.0.0": {
         "type": "package",
         "compile": {
-          "lib/net8.0/FluentValidation.dll": {}
+          "lib/net8.0/FluentValidation.dll": {
+            "related": ".xml"
+          }
         },
         "runtime": {
-          "lib/net8.0/FluentValidation.dll": {}
+          "lib/net8.0/FluentValidation.dll": {
+            "related": ".xml"
+          }
         }
       },
       "Google.Api.CommonProtos/2.17.0": {
@@ -492,19 +500,27 @@
           "Microsoft.Extensions.DependencyInjection.Abstractions": "8.0.0"
         },
         "compile": {
-          "lib/net6.0/MediatR.dll": {}
+          "lib/net6.0/MediatR.dll": {
+            "related": ".xml"
+          }
         },
         "runtime": {
-          "lib/net6.0/MediatR.dll": {}
+          "lib/net6.0/MediatR.dll": {
+            "related": ".xml"
+          }
         }
       },
       "MediatR.Contracts/2.0.1": {
         "type": "package",
         "compile": {
-          "lib/netstandard2.0/MediatR.Contracts.dll": {}
+          "lib/netstandard2.0/MediatR.Contracts.dll": {
+            "related": ".xml"
+          }
         },
         "runtime": {
-          "lib/netstandard2.0/MediatR.Contracts.dll": {}
+          "lib/netstandard2.0/MediatR.Contracts.dll": {
+            "related": ".xml"
+          }
         }
       },
       "Microsoft.AspNetCore.Http/2.3.0": {
@@ -895,10 +911,14 @@
           "Microsoft.Extensions.DependencyInjection.Abstractions": "9.0.5"
         },
         "compile": {
-          "lib/net8.0/Microsoft.Extensions.DependencyInjection.dll": {}
+          "lib/net8.0/Microsoft.Extensions.DependencyInjection.dll": {
+            "related": ".xml"
+          }
         },
         "runtime": {
-          "lib/net8.0/Microsoft.Extensions.DependencyInjection.dll": {}
+          "lib/net8.0/Microsoft.Extensions.DependencyInjection.dll": {
+            "related": ".xml"
+          }
         },
         "build": {
           "buildTransitive/net8.0/_._": {}
@@ -907,10 +927,14 @@
       "Microsoft.Extensions.DependencyInjection.Abstractions/9.0.7": {
         "type": "package",
         "compile": {
-          "lib/net8.0/Microsoft.Extensions.DependencyInjection.Abstractions.dll": {}
+          "lib/net8.0/Microsoft.Extensions.DependencyInjection.Abstractions.dll": {
+            "related": ".xml"
+          }
         },
         "runtime": {
-          "lib/net8.0/Microsoft.Extensions.DependencyInjection.Abstractions.dll": {}
+          "lib/net8.0/Microsoft.Extensions.DependencyInjection.Abstractions.dll": {
+            "related": ".xml"
+          }
         },
         "build": {
           "buildTransitive/net8.0/_._": {}
@@ -1089,10 +1113,14 @@
           "System.Diagnostics.DiagnosticSource": "9.0.7"
         },
         "compile": {
-          "lib/net8.0/Microsoft.Extensions.Logging.Abstractions.dll": {}
+          "lib/net8.0/Microsoft.Extensions.Logging.Abstractions.dll": {
+            "related": ".xml"
+          }
         },
         "runtime": {
-          "lib/net8.0/Microsoft.Extensions.Logging.Abstractions.dll": {}
+          "lib/net8.0/Microsoft.Extensions.Logging.Abstractions.dll": {
+            "related": ".xml"
+          }
         },
         "build": {
           "buildTransitive/net8.0/Microsoft.Extensions.Logging.Abstractions.targets": {}
@@ -1775,10 +1803,14 @@
       "System.Diagnostics.DiagnosticSource/9.0.7": {
         "type": "package",
         "compile": {
-          "lib/net8.0/System.Diagnostics.DiagnosticSource.dll": {}
+          "lib/net8.0/System.Diagnostics.DiagnosticSource.dll": {
+            "related": ".xml"
+          }
         },
         "runtime": {
-          "lib/net8.0/System.Diagnostics.DiagnosticSource.dll": {}
+          "lib/net8.0/System.Diagnostics.DiagnosticSource.dll": {
+            "related": ".xml"
+          }
         },
         "build": {
           "buildTransitive/net8.0/_._": {}
@@ -7589,19 +7621,19 @@
     ]
   },
   "packageFolders": {
-    "/home/codespace/.nuget/packages/": {}
+    "/home/adbel/.nuget/packages/": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "/workspaces/PFE.ExpenseTracker.APP/src/PFE.ExpenseTracker.Infrastructure/PFE.ExpenseTracker.Infrastructure.csproj",
+      "projectUniqueName": "/home/adbel/coure-Master/pfe/PFE.ExpenseTracker.APP/src/PFE.ExpenseTracker.Infrastructure/PFE.ExpenseTracker.Infrastructure.csproj",
       "projectName": "PFE.ExpenseTracker.Infrastructure",
-      "projectPath": "/workspaces/PFE.ExpenseTracker.APP/src/PFE.ExpenseTracker.Infrastructure/PFE.ExpenseTracker.Infrastructure.csproj",
-      "packagesPath": "/home/codespace/.nuget/packages/",
-      "outputPath": "/workspaces/PFE.ExpenseTracker.APP/src/PFE.ExpenseTracker.Infrastructure/obj/",
+      "projectPath": "/home/adbel/coure-Master/pfe/PFE.ExpenseTracker.APP/src/PFE.ExpenseTracker.Infrastructure/PFE.ExpenseTracker.Infrastructure.csproj",
+      "packagesPath": "/home/adbel/.nuget/packages/",
+      "outputPath": "/home/adbel/coure-Master/pfe/PFE.ExpenseTracker.APP/src/PFE.ExpenseTracker.Infrastructure/obj/",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "/home/codespace/.nuget/NuGet/NuGet.Config"
+        "/home/adbel/.nuget/NuGet/NuGet.Config"
       ],
       "originalTargetFrameworks": [
         "net8.0"
@@ -7613,11 +7645,11 @@
         "net8.0": {
           "targetAlias": "net8.0",
           "projectReferences": {
-            "/workspaces/PFE.ExpenseTracker.APP/src/PFE.ExpenseTracker.AIAgent/PFE.ExpenseTracker.AIAgent.csproj": {
-              "projectPath": "/workspaces/PFE.ExpenseTracker.APP/src/PFE.ExpenseTracker.AIAgent/PFE.ExpenseTracker.AIAgent.csproj"
+            "/home/adbel/coure-Master/pfe/PFE.ExpenseTracker.APP/src/PFE.ExpenseTracker.AIAgent/PFE.ExpenseTracker.AIAgent.csproj": {
+              "projectPath": "/home/adbel/coure-Master/pfe/PFE.ExpenseTracker.APP/src/PFE.ExpenseTracker.AIAgent/PFE.ExpenseTracker.AIAgent.csproj"
             },
-            "/workspaces/PFE.ExpenseTracker.APP/src/PFE.ExpenseTracker.Application/PFE.ExpenseTracker.Application.csproj": {
-              "projectPath": "/workspaces/PFE.ExpenseTracker.APP/src/PFE.ExpenseTracker.Application/PFE.ExpenseTracker.Application.csproj"
+            "/home/adbel/coure-Master/pfe/PFE.ExpenseTracker.APP/src/PFE.ExpenseTracker.Application/PFE.ExpenseTracker.Application.csproj": {
+              "projectPath": "/home/adbel/coure-Master/pfe/PFE.ExpenseTracker.APP/src/PFE.ExpenseTracker.Application/PFE.ExpenseTracker.Application.csproj"
             }
           }
         }
@@ -7698,7 +7730,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "/usr/share/dotnet/sdk/8.0.410/PortableRuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "/home/adbel/.dotnet/sdk/8.0.412/PortableRuntimeIdentifierGraph.json"
       }
     }
   },

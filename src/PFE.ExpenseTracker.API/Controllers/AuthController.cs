@@ -4,6 +4,9 @@ using PFE.ExpenseTracker.Application.Features.Auth.Commands;
 using MediatR;
 using System.Security.Claims;
 using PFE.ExpenseTracker.Application.Features.Users.Queries;
+using PFE.ExpenseTracker.Application.Features.Auth.Commands.RegisterCommand;
+using PFE.ExpenseTracker.Application.Features.Auth.Queries.Login;
+using PFE.ExpenseTracker.Application.Features.Auth.Commands.GoogleAuthCommand;
 
 namespace PFE.ExpenseTracker.API.Controllers
 {
@@ -30,7 +33,7 @@ namespace PFE.ExpenseTracker.API.Controllers
         }
 
         [HttpPost("login")]
-        public async Task<IActionResult> Login([FromBody] LoginCommand command)
+        public async Task<IActionResult> Login([FromBody] LoginQuerie command)
         {
             var result = await _mediator.Send(command);
             

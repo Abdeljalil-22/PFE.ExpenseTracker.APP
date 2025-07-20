@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "/workspaces/PFE.ExpenseTracker.APP/src/PFE.ExpenseTracker.Domain/PFE.ExpenseTracker.Domain.csproj": {}
+    "/home/adbel/coure-Master/pfe/PFE.ExpenseTracker.APP/src/PFE.ExpenseTracker.Domain/PFE.ExpenseTracker.Domain.csproj": {}
   },
   "projects": {
-    "/workspaces/PFE.ExpenseTracker.APP/src/PFE.ExpenseTracker.Domain/PFE.ExpenseTracker.Domain.csproj": {
+    "/home/adbel/coure-Master/pfe/PFE.ExpenseTracker.APP/src/PFE.ExpenseTracker.Domain/PFE.ExpenseTracker.Domain.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/workspaces/PFE.ExpenseTracker.APP/src/PFE.ExpenseTracker.Domain/PFE.ExpenseTracker.Domain.csproj",
+        "projectUniqueName": "/home/adbel/coure-Master/pfe/PFE.ExpenseTracker.APP/src/PFE.ExpenseTracker.Domain/PFE.ExpenseTracker.Domain.csproj",
         "projectName": "PFE.ExpenseTracker.Domain",
-        "projectPath": "/workspaces/PFE.ExpenseTracker.APP/src/PFE.ExpenseTracker.Domain/PFE.ExpenseTracker.Domain.csproj",
-        "packagesPath": "/home/codespace/.nuget/packages/",
-        "outputPath": "/workspaces/PFE.ExpenseTracker.APP/src/PFE.ExpenseTracker.Domain/obj/",
+        "projectPath": "/home/adbel/coure-Master/pfe/PFE.ExpenseTracker.APP/src/PFE.ExpenseTracker.Domain/PFE.ExpenseTracker.Domain.csproj",
+        "packagesPath": "/home/adbel/.nuget/packages/",
+        "outputPath": "/home/adbel/coure-Master/pfe/PFE.ExpenseTracker.APP/src/PFE.ExpenseTracker.Domain/obj/",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "/home/codespace/.nuget/NuGet/NuGet.Config"
+          "/home/adbel/.nuget/NuGet/NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net8.0"
@@ -58,7 +58,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "/usr/share/dotnet/sdk/8.0.410/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "/home/adbel/.dotnet/sdk/8.0.412/PortableRuntimeIdentifierGraph.json"
         }
       }
     }

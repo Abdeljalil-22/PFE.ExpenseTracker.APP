@@ -4,6 +4,7 @@ using AutoMapper;
 using PFE.ExpenseTracker.Application.Common.Interfaces;
 using PFE.ExpenseTracker.Application.Common.Models;
 using PFE.ExpenseTracker.Domain.Entities;
+using PFE.ExpenseTracker.Application.Common.Interfaces.Repository;
 
 namespace PFE.ExpenseTracker.Application.Features.Categories.Commands
 {
@@ -41,18 +42,21 @@ namespace PFE.ExpenseTracker.Application.Features.Categories.Commands
 
     public class CreateCategoryCommandHandler : IRequestHandler<CreateCategoryCommand, Result<CategoryDto>>
     {
-        private readonly ICategoryRepository _categoryRepository;
+        private readonly IReadCategoryRepository _readCategoryRepository;
+        private readonly IWriteCategoryRepository _writeCategoryRepository;
+
         private readonly IMapper _mapper;
 
-        public CreateCategoryCommandHandler(ICategoryRepository categoryRepository, IMapper mapper)
+        public CreateCategoryCommandHandler(IReadCategoryRepository categoryRepository,IWriteCategoryRepository writeCategoryRepository, IMapper mapper)
         {
-            _categoryRepository = categoryRepository;
+            _readCategoryRepository = categoryRepository;
+            _writeCategoryRepository = writeCategoryRepository;
             _mapper = mapper;
         }
 
         public async Task<Result<CategoryDto>> Handle(CreateCategoryCommand request, CancellationToken cancellationToken)
         {
-            var existingCategory = await _categoryRepository.GetByNameAsync(request.UserId, request.Name);
+            var existingCategory = await _readCategoryRepository.GetByNameAsync(request.UserId, request.Name);
             if (existingCategory != null)
                 return Result<CategoryDto>.Failure("A category with this name already exists");
 
@@ -66,8 +70,8 @@ namespace PFE.ExpenseTracker.Application.Features.Categories.Commands
                 IsDefault = false
             };
 
-            await _categoryRepository.AddAsync(category);
-            await _categoryRepository.SaveChangesAsync();
+            await _writeCategoryRepository.AddAsync(category);
+            await _writeCategoryRepository.SaveChangesAsync();
 
             var categoryDto = _mapper.Map<CategoryDto>(category);
             return Result<CategoryDto>.Success(categoryDto);

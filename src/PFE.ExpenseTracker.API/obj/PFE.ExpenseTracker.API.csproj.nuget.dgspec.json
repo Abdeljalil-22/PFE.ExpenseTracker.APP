@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "/workspaces/PFE.ExpenseTracker.APP/src/PFE.ExpenseTracker.API/PFE.ExpenseTracker.API.csproj": {}
+    "/home/adbel/coure-Master/pfe/PFE.ExpenseTracker.APP/src/PFE.ExpenseTracker.API/PFE.ExpenseTracker.API.csproj": {}
   },
   "projects": {
-    "/workspaces/PFE.ExpenseTracker.APP/src/PFE.ExpenseTracker.AIAgent/PFE.ExpenseTracker.AIAgent.csproj": {
+    "/home/adbel/coure-Master/pfe/PFE.ExpenseTracker.APP/src/PFE.ExpenseTracker.AIAgent/PFE.ExpenseTracker.AIAgent.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/workspaces/PFE.ExpenseTracker.APP/src/PFE.ExpenseTracker.AIAgent/PFE.ExpenseTracker.AIAgent.csproj",
+        "projectUniqueName": "/home/adbel/coure-Master/pfe/PFE.ExpenseTracker.APP/src/PFE.ExpenseTracker.AIAgent/PFE.ExpenseTracker.AIAgent.csproj",
         "projectName": "PFE.ExpenseTracker.AIAgent",
-        "projectPath": "/workspaces/PFE.ExpenseTracker.APP/src/PFE.ExpenseTracker.AIAgent/PFE.ExpenseTracker.AIAgent.csproj",
-        "packagesPath": "/home/codespace/.nuget/packages/",
-        "outputPath": "/workspaces/PFE.ExpenseTracker.APP/src/PFE.ExpenseTracker.AIAgent/obj/",
+        "projectPath": "/home/adbel/coure-Master/pfe/PFE.ExpenseTracker.APP/src/PFE.ExpenseTracker.AIAgent/PFE.ExpenseTracker.AIAgent.csproj",
+        "packagesPath": "/home/adbel/.nuget/packages/",
+        "outputPath": "/home/adbel/coure-Master/pfe/PFE.ExpenseTracker.APP/src/PFE.ExpenseTracker.AIAgent/obj/",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "/home/codespace/.nuget/NuGet/NuGet.Config"
+          "/home/adbel/.nuget/NuGet/NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net8.0"
@@ -26,8 +26,8 @@
           "net8.0": {
             "targetAlias": "net8.0",
             "projectReferences": {
-              "/workspaces/PFE.ExpenseTracker.APP/src/PFE.ExpenseTracker.Application/PFE.ExpenseTracker.Application.csproj": {
-                "projectPath": "/workspaces/PFE.ExpenseTracker.APP/src/PFE.ExpenseTracker.Application/PFE.ExpenseTracker.Application.csproj"
+              "/home/adbel/coure-Master/pfe/PFE.ExpenseTracker.APP/src/PFE.ExpenseTracker.Application/PFE.ExpenseTracker.Application.csproj": {
+                "projectPath": "/home/adbel/coure-Master/pfe/PFE.ExpenseTracker.APP/src/PFE.ExpenseTracker.Application/PFE.ExpenseTracker.Application.csproj"
               }
             }
           }
@@ -68,21 +68,21 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "/usr/share/dotnet/sdk/8.0.410/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "/home/adbel/.dotnet/sdk/8.0.412/PortableRuntimeIdentifierGraph.json"
         }
       }
     },
-    "/workspaces/PFE.ExpenseTracker.APP/src/PFE.ExpenseTracker.API/PFE.ExpenseTracker.API.csproj": {
+    "/home/adbel/coure-Master/pfe/PFE.ExpenseTracker.APP/src/PFE.ExpenseTracker.API/PFE.ExpenseTracker.API.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/workspaces/PFE.ExpenseTracker.APP/src/PFE.ExpenseTracker.API/PFE.ExpenseTracker.API.csproj",
+        "projectUniqueName": "/home/adbel/coure-Master/pfe/PFE.ExpenseTracker.APP/src/PFE.ExpenseTracker.API/PFE.ExpenseTracker.API.csproj",
         "projectName": "PFE.ExpenseTracker.API",
-        "projectPath": "/workspaces/PFE.ExpenseTracker.APP/src/PFE.ExpenseTracker.API/PFE.ExpenseTracker.API.csproj",
-        "packagesPath": "/home/codespace/.nuget/packages/",
-        "outputPath": "/workspaces/PFE.ExpenseTracker.APP/src/PFE.ExpenseTracker.API/obj/",
+        "projectPath": "/home/adbel/coure-Master/pfe/PFE.ExpenseTracker.APP/src/PFE.ExpenseTracker.API/PFE.ExpenseTracker.API.csproj",
+        "packagesPath": "/home/adbel/.nuget/packages/",
+        "outputPath": "/home/adbel/coure-Master/pfe/PFE.ExpenseTracker.APP/src/PFE.ExpenseTracker.API/obj/",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "/home/codespace/.nuget/NuGet/NuGet.Config"
+          "/home/adbel/.nuget/NuGet/NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net8.0"
@@ -94,14 +94,14 @@
           "net8.0": {
             "targetAlias": "net8.0",
             "projectReferences": {
-              "/workspaces/PFE.ExpenseTracker.APP/src/PFE.ExpenseTracker.AIAgent/PFE.ExpenseTracker.AIAgent.csproj": {
-                "projectPath": "/workspaces/PFE.ExpenseTracker.APP/src/PFE.ExpenseTracker.AIAgent/PFE.ExpenseTracker.AIAgent.csproj"
+              "/home/adbel/coure-Master/pfe/PFE.ExpenseTracker.APP/src/PFE.ExpenseTracker.AIAgent/PFE.ExpenseTracker.AIAgent.csproj": {
+                "projectPath": "/home/adbel/coure-Master/pfe/PFE.ExpenseTracker.APP/src/PFE.ExpenseTracker.AIAgent/PFE.ExpenseTracker.AIAgent.csproj"
               },
-              "/workspaces/PFE.ExpenseTracker.APP/src/PFE.ExpenseTracker.Application/PFE.ExpenseTracker.Application.csproj": {
-                "projectPath": "/workspaces/PFE.ExpenseTracker.APP/src/PFE.ExpenseTracker.Application/PFE.ExpenseTracker.Application.csproj"
+              "/home/adbel/coure-Master/pfe/PFE.ExpenseTracker.APP/src/PFE.ExpenseTracker.Application/PFE.ExpenseTracker.Application.csproj": {
+                "projectPath": "/home/adbel/coure-Master/pfe/PFE.ExpenseTracker.APP/src/PFE.ExpenseTracker.Application/PFE.ExpenseTracker.Application.csproj"
               },
-              "/workspaces/PFE.ExpenseTracker.APP/src/PFE.ExpenseTracker.Infrastructure/PFE.ExpenseTracker.Infrastructure.csproj": {
-                "projectPath": "/workspaces/PFE.ExpenseTracker.APP/src/PFE.ExpenseTracker.Infrastructure/PFE.ExpenseTracker.Infrastructure.csproj"
+              "/home/adbel/coure-Master/pfe/PFE.ExpenseTracker.APP/src/PFE.ExpenseTracker.Infrastructure/PFE.ExpenseTracker.Infrastructure.csproj": {
+                "projectPath": "/home/adbel/coure-Master/pfe/PFE.ExpenseTracker.APP/src/PFE.ExpenseTracker.Infrastructure/PFE.ExpenseTracker.Infrastructure.csproj"
               }
             }
           }
@@ -175,21 +175,21 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "/usr/share/dotnet/sdk/8.0.410/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "/home/adbel/.dotnet/sdk/8.0.412/PortableRuntimeIdentifierGraph.json"
         }
       }
     },
-    "/workspaces/PFE.ExpenseTracker.APP/src/PFE.ExpenseTracker.Application/PFE.ExpenseTracker.Application.csproj": {
+    "/home/adbel/coure-Master/pfe/PFE.ExpenseTracker.APP/src/PFE.ExpenseTracker.Application/PFE.ExpenseTracker.Application.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/workspaces/PFE.ExpenseTracker.APP/src/PFE.ExpenseTracker.Application/PFE.ExpenseTracker.Application.csproj",
+        "projectUniqueName": "/home/adbel/coure-Master/pfe/PFE.ExpenseTracker.APP/src/PFE.ExpenseTracker.Application/PFE.ExpenseTracker.Application.csproj",
         "projectName": "PFE.ExpenseTracker.Application",
-        "projectPath": "/workspaces/PFE.ExpenseTracker.APP/src/PFE.ExpenseTracker.Application/PFE.ExpenseTracker.Application.csproj",
-        "packagesPath": "/home/codespace/.nuget/packages/",
-        "outputPath": "/workspaces/PFE.ExpenseTracker.APP/src/PFE.ExpenseTracker.Application/obj/",
+        "projectPath": "/home/adbel/coure-Master/pfe/PFE.ExpenseTracker.APP/src/PFE.ExpenseTracker.Application/PFE.ExpenseTracker.Application.csproj",
+        "packagesPath": "/home/adbel/.nuget/packages/",
+        "outputPath": "/home/adbel/coure-Master/pfe/PFE.ExpenseTracker.APP/src/PFE.ExpenseTracker.Application/obj/",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "/home/codespace/.nuget/NuGet/NuGet.Config"
+          "/home/adbel/.nuget/NuGet/NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net8.0"
@@ -201,8 +201,8 @@
           "net8.0": {
             "targetAlias": "net8.0",
             "projectReferences": {
-              "/workspaces/PFE.ExpenseTracker.APP/src/PFE.ExpenseTracker.Domain/PFE.ExpenseTracker.Domain.csproj": {
-                "projectPath": "/workspaces/PFE.ExpenseTracker.APP/src/PFE.ExpenseTracker.Domain/PFE.ExpenseTracker.Domain.csproj"
+              "/home/adbel/coure-Master/pfe/PFE.ExpenseTracker.APP/src/PFE.ExpenseTracker.Domain/PFE.ExpenseTracker.Domain.csproj": {
+                "projectPath": "/home/adbel/coure-Master/pfe/PFE.ExpenseTracker.APP/src/PFE.ExpenseTracker.Domain/PFE.ExpenseTracker.Domain.csproj"
               }
             }
           }
@@ -259,21 +259,21 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "/usr/share/dotnet/sdk/8.0.410/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "/home/adbel/.dotnet/sdk/8.0.412/PortableRuntimeIdentifierGraph.json"
         }
       }
     },
-    "/workspaces/PFE.ExpenseTracker.APP/src/PFE.ExpenseTracker.Domain/PFE.ExpenseTracker.Domain.csproj": {
+    "/home/adbel/coure-Master/pfe/PFE.ExpenseTracker.APP/src/PFE.ExpenseTracker.Domain/PFE.ExpenseTracker.Domain.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/workspaces/PFE.ExpenseTracker.APP/src/PFE.ExpenseTracker.Domain/PFE.ExpenseTracker.Domain.csproj",
+        "projectUniqueName": "/home/adbel/coure-Master/pfe/PFE.ExpenseTracker.APP/src/PFE.ExpenseTracker.Domain/PFE.ExpenseTracker.Domain.csproj",
         "projectName": "PFE.ExpenseTracker.Domain",
-        "projectPath": "/workspaces/PFE.ExpenseTracker.APP/src/PFE.ExpenseTracker.Domain/PFE.ExpenseTracker.Domain.csproj",
-        "packagesPath": "/home/codespace/.nuget/packages/",
-        "outputPath": "/workspaces/PFE.ExpenseTracker.APP/src/PFE.ExpenseTracker.Domain/obj/",
+        "projectPath": "/home/adbel/coure-Master/pfe/PFE.ExpenseTracker.APP/src/PFE.ExpenseTracker.Domain/PFE.ExpenseTracker.Domain.csproj",
+        "packagesPath": "/home/adbel/.nuget/packages/",
+        "outputPath": "/home/adbel/coure-Master/pfe/PFE.ExpenseTracker.APP/src/PFE.ExpenseTracker.Domain/obj/",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "/home/codespace/.nuget/NuGet/NuGet.Config"
+          "/home/adbel/.nuget/NuGet/NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net8.0"
@@ -317,21 +317,21 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "/usr/share/dotnet/sdk/8.0.410/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "/home/adbel/.dotnet/sdk/8.0.412/PortableRuntimeIdentifierGraph.json"
         }
       }
     },
-    "/workspaces/PFE.ExpenseTracker.APP/src/PFE.ExpenseTracker.Infrastructure/PFE.ExpenseTracker.Infrastructure.csproj": {
+    "/home/adbel/coure-Master/pfe/PFE.ExpenseTracker.APP/src/PFE.ExpenseTracker.Infrastructure/PFE.ExpenseTracker.Infrastructure.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/workspaces/PFE.ExpenseTracker.APP/src/PFE.ExpenseTracker.Infrastructure/PFE.ExpenseTracker.Infrastructure.csproj",
+        "projectUniqueName": "/home/adbel/coure-Master/pfe/PFE.ExpenseTracker.APP/src/PFE.ExpenseTracker.Infrastructure/PFE.ExpenseTracker.Infrastructure.csproj",
         "projectName": "PFE.ExpenseTracker.Infrastructure",
-        "projectPath": "/workspaces/PFE.ExpenseTracker.APP/src/PFE.ExpenseTracker.Infrastructure/PFE.ExpenseTracker.Infrastructure.csproj",
-        "packagesPath": "/home/codespace/.nuget/packages/",
-        "outputPath": "/workspaces/PFE.ExpenseTracker.APP/src/PFE.ExpenseTracker.Infrastructure/obj/",
+        "projectPath": "/home/adbel/coure-Master/pfe/PFE.ExpenseTracker.APP/src/PFE.ExpenseTracker.Infrastructure/PFE.ExpenseTracker.Infrastructure.csproj",
+        "packagesPath": "/home/adbel/.nuget/packages/",
+        "outputPath": "/home/adbel/coure-Master/pfe/PFE.ExpenseTracker.APP/src/PFE.ExpenseTracker.Infrastructure/obj/",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "/home/codespace/.nuget/NuGet/NuGet.Config"
+          "/home/adbel/.nuget/NuGet/NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net8.0"
@@ -343,11 +343,11 @@
           "net8.0": {
             "targetAlias": "net8.0",
             "projectReferences": {
-              "/workspaces/PFE.ExpenseTracker.APP/src/PFE.ExpenseTracker.AIAgent/PFE.ExpenseTracker.AIAgent.csproj": {
-                "projectPath": "/workspaces/PFE.ExpenseTracker.APP/src/PFE.ExpenseTracker.AIAgent/PFE.ExpenseTracker.AIAgent.csproj"
+              "/home/adbel/coure-Master/pfe/PFE.ExpenseTracker.APP/src/PFE.ExpenseTracker.AIAgent/PFE.ExpenseTracker.AIAgent.csproj": {
+                "projectPath": "/home/adbel/coure-Master/pfe/PFE.ExpenseTracker.APP/src/PFE.ExpenseTracker.AIAgent/PFE.ExpenseTracker.AIAgent.csproj"
               },
-              "/workspaces/PFE.ExpenseTracker.APP/src/PFE.ExpenseTracker.Application/PFE.ExpenseTracker.Application.csproj": {
-                "projectPath": "/workspaces/PFE.ExpenseTracker.APP/src/PFE.ExpenseTracker.Application/PFE.ExpenseTracker.Application.csproj"
+              "/home/adbel/coure-Master/pfe/PFE.ExpenseTracker.APP/src/PFE.ExpenseTracker.Application/PFE.ExpenseTracker.Application.csproj": {
+                "projectPath": "/home/adbel/coure-Master/pfe/PFE.ExpenseTracker.APP/src/PFE.ExpenseTracker.Application/PFE.ExpenseTracker.Application.csproj"
               }
             }
           }
@@ -428,7 +428,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "/usr/share/dotnet/sdk/8.0.410/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "/home/adbel/.dotnet/sdk/8.0.412/PortableRuntimeIdentifierGraph.json"
         }
       }
     }

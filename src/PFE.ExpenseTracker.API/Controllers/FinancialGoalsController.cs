@@ -6,6 +6,8 @@ using PFE.ExpenseTracker.Application.Features.FinancialGoals.Commands;
 using PFE.ExpenseTracker.Application.Features.FinancialGoals.Queries;
 using System.Security.Claims;
 using MediatR;
+using PFE.ExpenseTracker.Application.Features.FinancialGoals.Queries.GetFinancialGoals;
+using PFE.ExpenseTracker.Application.Features.FinancialGoals.Queries.GetFinancialGoalById;
 
 namespace PFE.ExpenseTracker.API.Controllers
 {

@@ -11,11 +11,11 @@ namespace PFE.ExpenseTracker.Infrastructure.Persistence
     public class ApplicationDbInitializer
     {
         private readonly ILogger<ApplicationDbInitializer> _logger;
-        private readonly ApplicationDbContext _context;
+        private readonly WriteDbContext _context;
 
         public ApplicationDbInitializer(
             ILogger<ApplicationDbInitializer> logger,
-            ApplicationDbContext context)
+            WriteDbContext context)
         {
             _logger = logger;
             _context = context;

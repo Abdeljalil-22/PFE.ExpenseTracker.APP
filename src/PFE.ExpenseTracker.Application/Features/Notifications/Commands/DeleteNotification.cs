@@ -2,6 +2,7 @@
 
 using MediatR;
 using PFE.ExpenseTracker.Application.Common.Interfaces;
+using PFE.ExpenseTracker.Application.Common.Interfaces.Repository;
 using PFE.ExpenseTracker.Application.Common.Models;
 
 namespace PFE.ExpenseTracker.Application.Features.Notifications.Commands;
@@ -16,16 +17,20 @@ public class DeleteNotificationCommand : IRequest<Result>
 
 public class DeleteNotificationCommandHandler : IRequestHandler<DeleteNotificationCommand, Result>
 {
-    private readonly INotificationRepository _notificationRepository;
+    private readonly IReadNotificationRepository _readNotificationRepository;
+    private readonly IWriteNotificationRepository _writeNotificationRepository;
 
-    public DeleteNotificationCommandHandler(INotificationRepository notificationRepository)
+    public DeleteNotificationCommandHandler(
+        IReadNotificationRepository readNotificationRepository,
+        IWriteNotificationRepository writeNotificationRepository)
     {
-        _notificationRepository = notificationRepository;
+        _readNotificationRepository = readNotificationRepository;
+        _writeNotificationRepository = writeNotificationRepository;
     }
 
     public async Task<Result> Handle(DeleteNotificationCommand request, CancellationToken cancellationToken)
     {
-        var notification = await _notificationRepository.GetByIdAsync(request.Id);
+        var notification = await _readNotificationRepository.GetByIdAsync(request.Id);
 
         if (notification == null)
             return Result.Failure("Notification not found");
@@ -33,8 +38,8 @@ public class DeleteNotificationCommandHandler : IRequestHandler<DeleteNotificati
         if (notification.UserId != request.UserId)
             return Result.Failure("Unauthorized access");
 
-        await _notificationRepository.DeleteAsync(notification);
-        await _notificationRepository.SaveChangesAsync();
+        await _writeNotificationRepository.DeleteAsync(notification);
+        await _writeNotificationRepository.SaveChangesAsync();
 
         return Result.Success();
     }

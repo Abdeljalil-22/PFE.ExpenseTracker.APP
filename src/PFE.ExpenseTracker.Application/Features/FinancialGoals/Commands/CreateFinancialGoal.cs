@@ -7,6 +7,7 @@ using AutoMapper;
 using PFE.ExpenseTracker.Application.Common.Interfaces;
 using PFE.ExpenseTracker.Application.Common.Models;
 using PFE.ExpenseTracker.Domain.Entities;
+using PFE.ExpenseTracker.Application.Common.Interfaces.Repository;
 
 namespace PFE.ExpenseTracker.Application.Features.FinancialGoals.Commands
 {
@@ -43,14 +44,14 @@ namespace PFE.ExpenseTracker.Application.Features.FinancialGoals.Commands
 
     public class CreateFinancialGoalCommandHandler : IRequestHandler<CreateFinancialGoalCommand, Result<FinancialGoalDto>>
     {
-        private readonly IFinancialGoalRepository _goalRepository;
 
-        public CreateFinancialGoalCommandHandler(IFinancialGoalRepository goalRepository)
+        private readonly IWriteFinancialGoalRepository _writeFinancialGoalRepository;
+        public CreateFinancialGoalCommandHandler(
+            IWriteFinancialGoalRepository writeFinancialGoalRepository)
         {
-            _goalRepository = goalRepository;
+            _writeFinancialGoalRepository = writeFinancialGoalRepository;
         }
-
-        public async Task<Result<FinancialGoalDto>> Handle(CreateFinancialGoalCommand request, CancellationToken cancellationToken)
+                public async Task<Result<FinancialGoalDto>> Handle(CreateFinancialGoalCommand request, CancellationToken cancellationToken)
         {
             var goal = new FinancialGoal
             {
@@ -64,8 +65,8 @@ namespace PFE.ExpenseTracker.Application.Features.FinancialGoals.Commands
                 Status = "In Progress"
             };
 
-            await _goalRepository.AddAsync(goal);
-            await _goalRepository.SaveChangesAsync();
+            await _writeFinancialGoalRepository.AddAsync(goal);
+            await _writeFinancialGoalRepository.SaveChangesAsync();
 
             return Result<FinancialGoalDto>.Success(new FinancialGoalDto
             {
