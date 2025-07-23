@@ -15,11 +15,11 @@ namespace PFE.ExpenseTracker.Domain.Entities
         public DateTime CreatedAt { get; set; }
         public DateTime? LastLogin { get; set; }
         public bool IsActive { get; set; }
-        public UserPreferences Preferences { get; set; }
-        public ICollection<Expense> Expenses { get; set; }
-        public ICollection<Category> Categories { get; set; }
-        public ICollection<Budget> Budgets { get; set; }
-        public ICollection<FinancialGoal> FinancialGoals { get; set; }
-        public ICollection<Notification> Notifications { get; set; }
+        public virtual UserPreferences Preferences { get; set; }
+        public virtual ICollection<Expense> Expenses { get; set; }
+        public virtual ICollection<Category> Categories { get; set; }
+        public virtual ICollection<Budget> Budgets { get; set; }
+        public virtual ICollection<FinancialGoal> FinancialGoals { get; set; }
+        public virtual ICollection<Notification> Notifications { get; set; }
     }
 }

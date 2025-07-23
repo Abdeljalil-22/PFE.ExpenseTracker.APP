@@ -14,15 +14,19 @@ namespace PFE.ExpenseTracker.Application.Features.Auth.Commands.RegisterCommand;
         private readonly IReadUserRepository _readuserRepository;
         private readonly IWriteUserRepository _writeuserRepository;
         private readonly IJwtAuthenticationService _jwtService;
+        private readonly IEmailService _emailService;
 
-        public RegisterCommandHandler(IReadUserRepository readuserRepository,IWriteUserRepository writeuserRepository, IJwtAuthenticationService jwtService)
+        public RegisterCommandHandler(
+            IReadUserRepository readuserRepository,
+            IWriteUserRepository writeuserRepository,
+            IJwtAuthenticationService jwtService,
+            IEmailService emailService)
         {
-
-            _writeuserRepository = writeuserRepository;
             _readuserRepository = readuserRepository;
+            _writeuserRepository = writeuserRepository;
             _jwtService = jwtService;
+            _emailService = emailService;
         }
-
         public async Task<Result<AuthenticationResponse>> Handle(RegisterCommand request, CancellationToken cancellationToken)
         {
             if (await _readuserRepository.EmailExistsAsync(request.Email))
@@ -62,6 +66,8 @@ namespace PFE.ExpenseTracker.Application.Features.Auth.Commands.RegisterCommand;
                     LastName = user.LastName
                 }
             };
+             await _emailService.SendWelcomeEmailAsync(user.Email, user.UserName);
+
             return Result<AuthenticationResponse>.Success(response);
         }
     }

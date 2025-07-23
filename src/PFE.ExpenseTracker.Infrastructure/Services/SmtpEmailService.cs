@@ -1,5 +1,6 @@
 using Microsoft.Extensions.Configuration;
 using PFE.ExpenseTracker.Application.Common.Interfaces;
+using PFE.ExpenseTracker.Application.Common.Interfaces.Repository;
 using System.Net;
 using System.Net.Mail;
 
@@ -9,23 +10,57 @@ namespace PFE.ExpenseTracker.Infrastructure.Services
     {
         private readonly IConfiguration _configuration;
         private readonly SmtpClient _smtpClient;
+        private readonly IReadUserRepository _readUserRepository;
+        
         private readonly string _fromEmail;
 
         public SmtpEmailService(IConfiguration configuration)
         {
             _configuration = configuration;
-            
             var smtpSettings = _configuration.GetSection("EmailSettings");
-            _fromEmail = smtpSettings["FromEmail"];
 
-            _smtpClient = new SmtpClient(smtpSettings["SmtpServer"])
+            // Helper to get value from env or config
+            string GetSetting(string key, string envVar, string fallback = "")
             {
-                Port = int.Parse(smtpSettings["SmtpPort"]),
-                Credentials = new NetworkCredential(
-                    smtpSettings["SmtpUsername"],
-                    smtpSettings["SmtpPassword"]
-                ),
-                EnableSsl = bool.Parse(smtpSettings["EnableSsl"])
+                var value = smtpSettings[key];
+                if (string.IsNullOrWhiteSpace(value) || value.StartsWith("${"))
+                {
+                    var envValue = Environment.GetEnvironmentVariable(envVar);
+                    return !string.IsNullOrWhiteSpace(envValue) ? envValue : fallback;
+                }
+                return value ?? fallback;
+            }
+
+            _fromEmail = GetSetting("FromEmail", "FROM_EMAIL");
+            var smtpServer = GetSetting("SmtpServer", "SMTP_SERVER");
+            var smtpPortStr = GetSetting("SmtpPort", "SMTP_PORT", "587");
+            var smtpUsername = GetSetting("SmtpUsername", "SMTP_USERNAME");
+            var smtpPassword = GetSetting("SmtpPassword", "SMTP_PASSWORD", "");
+            var enableSslStr = GetSetting("EnableSsl", "ENABLE_SSL", "true");
+
+            int port = 587;
+            if (!string.IsNullOrWhiteSpace(smtpPortStr))
+            {
+                if (!int.TryParse(smtpPortStr, out port))
+                {
+                    port = 587;
+                }
+            }
+
+            bool enableSsl = true;
+            if (!string.IsNullOrWhiteSpace(enableSslStr))
+            {
+                if (!bool.TryParse(enableSslStr, out enableSsl))
+                {
+                    enableSsl = true;
+                }
+            }
+
+            _smtpClient = new SmtpClient(smtpServer)
+            {
+                Port = port,
+                Credentials = new NetworkCredential(smtpUsername, smtpPassword),
+                EnableSsl = enableSsl
             };
         }
 

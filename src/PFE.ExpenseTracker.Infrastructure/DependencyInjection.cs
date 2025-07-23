@@ -1,4 +1,5 @@
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Proxies;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using PFE.ExpenseTracker.Application.Common.Interfaces;
@@ -17,16 +18,24 @@ namespace PFE.ExpenseTracker.Infrastructure
              {
             // Register WriteDbContext for commands
             services.AddDbContext<WriteDbContext>(options =>
+            {
                 options.UseSqlServer(
                     configuration.GetConnectionString("DefaultConnection"),
-                    b => b.MigrationsAssembly(typeof(WriteDbContext).Assembly.FullName)));
+                    b => b.MigrationsAssembly(typeof(WriteDbContext).Assembly.FullName));
+                // options.UseLazyLoadingProxies();
+            });
 
             // Register ReadDbContext for queries (can use a read replica connection string if available)
             services.AddDbContext<ReadDbContext>(options =>
+            {
                 options.UseSqlServer(
                     configuration.GetConnectionString("ReadConnection") ?? configuration.GetConnectionString("DefaultConnection"),
-                    b => b.MigrationsAssembly(typeof(ReadDbContext).Assembly.FullName)));
-
+                    b => b.MigrationsAssembly(typeof(ReadDbContext).Assembly.FullName));
+                options.EnableSensitiveDataLogging(); // Enable for debugging purposes, remove in production
+                options.UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking);
+                // options.
+                // options.UseLazyLoadingProxies();
+            });
             // Add Redis and chat history service
             var redisConnection = configuration.GetConnectionString("Redis");
             services.AddSingleton<IConnectionMultiplexer>(sp => 
@@ -72,7 +81,7 @@ namespace PFE.ExpenseTracker.Infrastructure
             // Register background services
             services.AddHostedService<RecurringExpenseService>();
             services.AddHostedService<BudgetAlertService>();
-
+            services.AddHostedService<NotificationBackgroundService>();
             // Register GeminiAIService
             services.AddScoped<IGeminiAIService,GeminiAIService>();
 

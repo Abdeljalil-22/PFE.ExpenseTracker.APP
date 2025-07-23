@@ -8,15 +8,15 @@ using PFE.ExpenseTracker.Infrastructure.Persistence;
 
 namespace PFE.ExpenseTracker.Infrastructure.Repositories
 {
-    public class ReadNotificationRepository :ReadRepository<Notification>, IReadNotificationRepository
+    public class ReadNotificationRepository : ReadRepository<Notification>, IReadNotificationRepository
     {
         private readonly ReadDbContext _context;
-        public ReadNotificationRepository(ReadDbContext context): base(context)
+        public ReadNotificationRepository(ReadDbContext context) : base(context)
         {
             _context = context;
         }
 
-  public async Task<IEnumerable<Notification>> GetUserNotificationsAsync(Guid userId)
+        public async Task<IEnumerable<Notification>> GetUserNotificationsAsync(Guid userId)
         {
             return await _dbSet
                 .Where(n => n.UserId == userId)
@@ -30,6 +30,11 @@ namespace PFE.ExpenseTracker.Infrastructure.Repositories
                 .Where(n => n.UserId == userId && !n.IsRead)
                 .OrderByDescending(n => n.CreatedAt)
                 .ToListAsync();
+        }
+        
+        public async Task<bool> ExistsAsync(Guid userId, string type, string message)
+        {
+            return await _dbSet.AnyAsync(n => n.UserId == userId && n.Type == type && n.Message == message && !n.IsRead);
         }
         // ...other read-only methods...
     }

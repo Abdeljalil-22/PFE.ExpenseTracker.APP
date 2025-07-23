@@ -14,7 +14,7 @@ namespace PFE.ExpenseTracker.Domain.Entities
         public DateTime StartDate { get; set; }
         public DateTime TargetDate { get; set; }
         public string Status { get; set; }
-        public User User { get; set; }
-        public ICollection<GoalContribution> Contributions { get; set; }
+        public virtual User User { get; set; }
+        public virtual ICollection<GoalContribution> Contributions { get; set; }
     }
 }

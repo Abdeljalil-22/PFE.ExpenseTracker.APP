@@ -12,8 +12,8 @@ namespace PFE.ExpenseTracker.Domain.Entities
         public string Icon { get; set; }
         public string Color { get; set; }
         public bool IsDefault { get; set; }
-        public User User { get; set; }
-        public ICollection<Expense> Expenses { get; set; }
-        public ICollection<Budget> Budgets { get; set; }
+        public virtual User? User { get; set; }
+        public virtual ICollection<Expense>? Expenses { get; set; }
+        public virtual ICollection<Budget>? Budgets { get; set; }
     }
 }

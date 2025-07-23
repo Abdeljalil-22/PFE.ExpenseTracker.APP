@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "OIzM/qFX75k=",
+  "dgSpecHash": "g/krwk8Xo/Y=",
   "success": true,
   "projectFilePath": "/home/adbel/coure-Master/pfe/PFE.ExpenseTracker.APP/src/PFE.ExpenseTracker.Infrastructure/PFE.ExpenseTracker.Infrastructure.csproj",
   "expectedPackageFiles": [
@@ -10,6 +10,7 @@
     "/home/adbel/.nuget/packages/bcrypt.net-next/4.0.3/bcrypt.net-next.4.0.3.nupkg.sha512",
     "/home/adbel/.nuget/packages/bouncycastle/1.8.9/bouncycastle.1.8.9.nupkg.sha512",
     "/home/adbel/.nuget/packages/bouncycastle.cryptography/2.4.0/bouncycastle.cryptography.2.4.0.nupkg.sha512",
+    "/home/adbel/.nuget/packages/castle.core/5.1.1/castle.core.5.1.1.nupkg.sha512",
     "/home/adbel/.nuget/packages/closedxml/0.105.0/closedxml.0.105.0.nupkg.sha512",
     "/home/adbel/.nuget/packages/closedxml.parser/2.0.0/closedxml.parser.2.0.0.nupkg.sha512",
     "/home/adbel/.nuget/packages/documentformat.openxml/3.1.1/documentformat.openxml.3.1.1.nupkg.sha512",
@@ -50,6 +51,7 @@
     "/home/adbel/.nuget/packages/microsoft.entityframeworkcore/9.0.5/microsoft.entityframeworkcore.9.0.5.nupkg.sha512",
     "/home/adbel/.nuget/packages/microsoft.entityframeworkcore.abstractions/9.0.5/microsoft.entityframeworkcore.abstractions.9.0.5.nupkg.sha512",
     "/home/adbel/.nuget/packages/microsoft.entityframeworkcore.analyzers/9.0.5/microsoft.entityframeworkcore.analyzers.9.0.5.nupkg.sha512",
+    "/home/adbel/.nuget/packages/microsoft.entityframeworkcore.proxies/9.0.5/microsoft.entityframeworkcore.proxies.9.0.5.nupkg.sha512",
     "/home/adbel/.nuget/packages/microsoft.entityframeworkcore.relational/9.0.5/microsoft.entityframeworkcore.relational.9.0.5.nupkg.sha512",
     "/home/adbel/.nuget/packages/microsoft.entityframeworkcore.sqlserver/9.0.5/microsoft.entityframeworkcore.sqlserver.9.0.5.nupkg.sha512",
     "/home/adbel/.nuget/packages/microsoft.extensions.caching.abstractions/9.0.5/microsoft.extensions.caching.abstractions.9.0.5.nupkg.sha512",

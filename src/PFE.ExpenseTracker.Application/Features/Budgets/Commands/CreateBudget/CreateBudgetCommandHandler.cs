@@ -43,6 +43,7 @@ namespace PFE.ExpenseTracker.Application.Features.Budgets.Commands.CreateBudget
                 SpentAmount = 0,
                 StartDate = request.StartDate,
                 EndDate = request.EndDate,
+                // AlertEnabled= true, // Default value
             };
 
             await _budgetRepository.AddAsync(budget);

@@ -113,7 +113,7 @@ builder.Services.AddCors(options =>
 });
 
 var app = builder.Build();
-
+DotNetEnv.Env.Load();
 // Initialize and seed the database
 using (var scope = app.Services.CreateScope())
 {

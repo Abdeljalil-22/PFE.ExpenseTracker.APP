@@ -20,10 +20,10 @@ namespace PFE.ExpenseTracker.Infrastructure.Repositories
             => await _context.Budgets.FindAsync(id);
 
         public async Task<IEnumerable<Budget>> GetAllAsync()
-            => await _context.Budgets.ToListAsync();
+            => await _context.Budgets.Include(i=>i.Category).ToListAsync();
 
         public async Task<IEnumerable<Budget>> GetUserBudgetsAsync(Guid userId)
-            => await _context.Budgets.Where(b => b.UserId == userId).ToListAsync();
+            => await _context.Budgets.Include(i=>i.Category).Where(b => b.UserId == userId).ToListAsync();
 
         public async Task<Budget?> GetBudgetByCategoryAsync(Guid userId, Guid categoryId)
             => await _context.Budgets.FirstOrDefaultAsync(b => b.UserId == userId && b.CategoryId == categoryId);

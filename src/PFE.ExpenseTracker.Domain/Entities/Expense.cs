@@ -15,8 +15,8 @@ namespace PFE.ExpenseTracker.Domain.Entities;
         public DateTime? NextRecurringDate { get; set; }
         public bool IsShared { get; set; }
         public string Notes { get; set; }
-        public User User { get; set; }
-        public Category Category { get; set; }
-        public ICollection<Attachment> Attachments { get; set; }
+        public virtual User User { get; set; }
+        public virtual Category Category { get; set; }
+        public virtual ICollection<Attachment> Attachments { get; set; }
     }
 
